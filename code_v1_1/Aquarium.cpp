@@ -1,6 +1,6 @@
 #include "Aquarium.h"
 
-#include "Milieu.h"
+#include "Medium.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
@@ -12,8 +12,8 @@ Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( 
 
    cout << "const Aquarium" << endl;
 
-   flotte = new Milieu( width, height );
-   assign( *flotte, "Simulation d'ecosysteme" );
+   aqua = new Medium( width, height );
+   assign( *aqua, "Simulation d'ecosysteme" );
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );
 
@@ -23,7 +23,7 @@ Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( 
 Aquarium::~Aquarium( void )
 {
 
-   delete flotte;
+   delete aqua;
 
    cout << "dest Aquarium" << endl;
 
@@ -46,8 +46,8 @@ void Aquarium::run( void )
          if ( is_keyESC() ) close();
       }
 
-      flotte->step();
-      display( *flotte );
+      aqua->step();
+      display( *aqua );
 
       wait( delay );
 

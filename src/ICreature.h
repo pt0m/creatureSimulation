@@ -33,8 +33,6 @@ class ICreature {
 
     virtual const double get_vx() = 0;
 
-
-
 };
 
 #endif //ICREATURE_H

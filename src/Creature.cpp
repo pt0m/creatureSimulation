@@ -1,7 +1,3 @@
-//
-// Created by Ménard Luc on 04/12/2020.
-//
-
 #include "Creature.h"
 #include "Medium.h"
 

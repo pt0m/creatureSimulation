@@ -1,18 +1,10 @@
-//
-// Created by Ménard Luc on 04/12/2020.
-//
-
-//
-// Created by Ménard Luc on 04/12/2020.
-//
-
-#ifndef PROJET_CREATURE_H
-#define PROJET_CREATURE_H
+#ifndef CREATURE_H
+#define CREATURE_H
 
 #include "ICreature.h"
-#include <vector>
 #include "Medium.hpp"
-#include "IBehaviour.h"
+
+#include <vector>
 
 class Creature: public ICreature {
 
@@ -68,5 +60,5 @@ public:
 };
 
 
-#endif //PROJET_CREATURE_H
+#endif //CREATURE_H
 

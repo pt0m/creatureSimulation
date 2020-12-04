@@ -2,9 +2,7 @@
 #define ICREATURE_H
 
 class ICreature {
-    virtual void creature() = 0;
-
-    virtual void creature(const ICreature &c) = 0;
+    virtual void ~ICreature() = 0;
 
     virtual void action(const Medium &myMedium) = 0;
 
@@ -14,7 +12,7 @@ class ICreature {
 
     virtual void init_coords(const int x, const int y) = 0;
 
-    virtual const void get_speed() = 0;
+    virtual const double get_speed() = 0;
 
     virtual void set_speed(const double new_val) = 0;
 

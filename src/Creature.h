@@ -2,60 +2,56 @@
 #define CREATURE_H
 
 #include "ICreature.h"
-#include "Medium.hpp"
+#include "Medium.h"
 
-#include <vector>
 
-class Creature: public ICreature {
-
-private:
-    static const double     AFF_SIZE;
-    static const double     MAX_SPEED;
-    static const double     LIMIT_VIEW;
-
+class Creature : public ICreature {
 
 private:
+    static const double AFF_SIZE;
+    static const double LIMIT_VIEW;
+    static const double MAX_SPEED;
 
+
+private:
+    double camouflage
     int identity;
-    int x;
-    int y;
+    int lifetime;
+    float orientation;
+    float size;
+    double speed;
     double vx;
     double vy;
-    float orientation
-    double speed;
-    T* color:
-    float size;
-    int lifetime;
-    IBehaviour behaviour;
-    double camouflage
+    int x;
+    int y;
 
 public:
 
     Creature();
 
-    Creature(const Creature& c);
+    Creature(const Creature &c);
 
     void action(const Medium &myMedium);
 
     void draw(UImg &support);
 
+    void init_coords(const int x, const int y);
+
+    const bool is_collision_deadly();
+
     const bool is_detected(const ICreature &);
-
-    void init_coords(const int x, const int y) ;
-
-    const void get_speed();
-
-    void set_speed(const double new_val);
 
     const double get_camouflage();
 
-    void set_camouflage(const int new_val);
-
     const int get_lifetime();
+
+    const void get_speed();
+
+    void set_camouflage(const int new_val);
 
     int set_lifetime(const int new_val);
 
-    const bool is_collision_deadly();
+    void set_speed(const double new_val);
 
 };
 

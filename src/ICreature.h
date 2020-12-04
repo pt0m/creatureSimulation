@@ -1,7 +1,8 @@
 #ifndef ICREATURE_H
 #define ICREATURE_H
-
+#include "Medium.h"
 class ICreature {
+    // Define operations that can be altered by decorators
 public:
     virtual void action(const Medium &myMedium) = 0;
 

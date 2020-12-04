@@ -2,9 +2,6 @@
 #define ICREATURE_H
 
 class ICreature {
-    virtual void creature() = 0;
-
-    virtual void creature(const ICreature &c) = 0;
 
     virtual void action(const Medium &myMedium) = 0;
 
@@ -24,9 +21,19 @@ class ICreature {
 
     virtual const int get_lifetime() = 0;
 
-    virtual int set_lifetime(const int new_val);
+    virtual int set_lifetime(const int new_val) = 0;
 
     virtual const bool is_collision_deadly() = 0;
+
+    virtual const int get_y() = 0;
+
+    virtual const int get_x() = 0;
+
+    virtual const double get_vy() = 0;
+
+    virtual const double get_vx() = 0;
+
+
 
 };
 

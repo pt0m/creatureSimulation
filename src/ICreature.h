@@ -2,12 +2,12 @@
 #define ICREATURE_H
 
 class ICreature {
-
+public:
     virtual void action(const Medium &myMedium) = 0;
 
     virtual void draw(UImg &support) = 0;
 
-    virtual const bool is_detected(const ICreature &) = 0;
+    virtual const bool is_detected(const ICreature &c) = 0;
 
     virtual void init_coords(const int x, const int y) = 0;
 

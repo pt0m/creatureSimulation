@@ -11,7 +11,7 @@ class ICreature {
 
     virtual void init_coords(const int x, const int y) = 0;
 
-    virtual const void get_speed() = 0;
+    virtual const double get_speed() = 0;
 
     virtual void set_speed(const double new_val) = 0;
 

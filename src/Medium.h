@@ -3,6 +3,7 @@
 
 #include "UImg.h"
 
-class Medium : public UImg {
+class Medium {
 };
-#endif
+
+#endif // MEDIUM_H

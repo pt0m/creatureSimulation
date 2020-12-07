@@ -3,6 +3,7 @@
 
 #include "ICreature.h"
 #include "Medium.h"
+#include "UImg.h"
 
 
 class Creature : public ICreature {
@@ -14,7 +15,7 @@ private:
 
 
 private:
-    double camouflage
+    double camouflage;
     int identity;
     int lifetime;
     float orientation;
@@ -31,27 +32,35 @@ public:
 
     Creature(const Creature &c);
 
-    void action(const Medium &myMedium);
+    void action(const Medium &myMedium) override;
 
-    void draw(UImg &support);
+    void draw(UImg &support) override;
 
-    void init_coords(const int x, const int y);
+    void init_coords(const int x, const int y) override;
 
-    const bool is_collision_deadly();
+    const bool is_collision_deadly() override;
 
-    const bool is_detected(const ICreature &);
+    const bool is_detected(const ICreature &c) override;
 
-    const double get_camouflage();
+    const double get_camouflage() override;
 
-    const int get_lifetime();
+    const int get_lifetime() override;
 
-    const void get_speed();
+    const double get_speed() override;
 
-    void set_camouflage(const int new_val);
+    const int get_x() override;
 
-    int set_lifetime(const int new_val);
+    const int get_y() override;
 
-    void set_speed(const double new_val);
+    const double get_vx() override;
+
+    const double get_vy() override;
+
+    void set_camouflage(const int new_val) override;
+
+    void set_lifetime(const int new_val) override;
+
+    void set_speed(const double new_val) override;
 
 };
 

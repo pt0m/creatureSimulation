@@ -55,11 +55,11 @@ private:
 
     const int get_vy() override;
 
-  void set_camouflage(const int new_val) override;
+    void set_camouflage(const float new_val) override;
 
   void set_lifetime(const int new_val) override;
 
-  void set_speed(const double new_val) override;
+    void set_speed(const int new_val) override;
 
 };
 

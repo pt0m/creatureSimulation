@@ -29,7 +29,7 @@ Creature::Creature() {
     this->y = rand() % height;
     
     //set the orientation
-    this->orientation = 2*3.14/(std::rand() % 360);
+    this->orientation = 2.*3.14/static_cast<double>(std::rand() % 360);
     
     //set the lifetime
     int max_lifetime = config_singleton -> get_config_int("max_lifetime");
@@ -42,7 +42,7 @@ Creature::Creature() {
 
     //set the camouflage
     int max_camouflage = config_singleton->get_config_int("max_camouflage");
-    this->camouflage = (std::rand()%max_camouflage)/100;
+    this->camouflage = (static_cast<float>(std::rand()%max_camouflage))/100.;
 
     //set identity
     this->identity = Creature::NEXT_IDENTITY;

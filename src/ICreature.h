@@ -8,6 +8,7 @@ class ICreature {
     // Define operations that can be altered by decorators
 public:
     ~ICreature() = default;
+
     virtual void action(const Medium &myMedium) = 0;
 
     virtual void draw(UImg &support) = 0;
@@ -26,7 +27,7 @@ public:
 
     virtual const double get_vy() = 0;
 
-    virtual void init_coords(const int x, const int y) = 0;
+    virtual void set_coords(const int x, const int y) = 0;
 
     virtual const bool is_collision_deadly() = 0;
 

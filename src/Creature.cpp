@@ -15,7 +15,7 @@ Creature::Creature() {
     // set the speed value
     int max_speed = config_singleton -> get_config_int("max_speed");
     int min_speed = config_singleton -> get_config_int("min_speed");
-    this->speed = std::rand() % max_speed + min_speed;
+    this->speed = static_cast<double>(std::rand() % max_speed + min_speed);
     
     // set the size
     int max_size = config_singleton -> get_config_int("max_size");
@@ -23,7 +23,7 @@ Creature::Creature() {
     this->size = std::rand() % max_size + min_size;
     
     // set the first position
-    int width = config_singleton -> get_config_int("with");
+    int width = config_singleton -> get_config_int("width");
     int height = config_singleton -> get_config_int("height");
     this->x = rand() % width;
     this->y = rand() % height;
@@ -37,8 +37,8 @@ Creature::Creature() {
     this->lifetime = std::rand() % min_lifetime + max_lifetime;
 
     //set vx and vy
-    this->vx = 0;
-    this->vy = 0;
+    this->vx = static_cast<int>((this->speed)*cos(this->orientation));
+    this->vy = static_cast<int>((this->speed)*sin(this->orientation));
 
     //set the camouflage
     int max_camouflage = config_singleton->get_config_int("max_camouflage");
@@ -47,6 +47,13 @@ Creature::Creature() {
     //set identity
     this->identity = Creature::NEXT_IDENTITY;
     Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
+
+    // set the color
+    color = new T[ 3 ];
+   color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+   color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+   color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+
 }
 
 Creature::Creature(const Creature &c) {
@@ -65,15 +72,16 @@ Creature::Creature(const Creature &c) {
 void Creature::action(const Medium &myMedium) {
     std::cout << "Empty implementation";
     this->lifetime = this->lifetime - 1;
-    if (lifetime == 0)
-    {
-        this->~Creature();
-    }
 }
 
 void Creature::draw(UImg &support) {
 
-  std::cout << "Empty implementation";
+    double         xt = x + cos( orientation )*this->size/2.1;
+    double         yt = y - sin( orientation )*this->size/2.1;
+
+
+    support.draw_ellipse( x, y, this->size, his->size/5., -orientation/M_PI*180., color );
+    support.draw_circle( xt, yt, this->size/2., color );
 }
 
 

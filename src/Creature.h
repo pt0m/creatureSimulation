@@ -17,13 +17,15 @@ private:
     int lifetime;
     float orientation;
     float size;
-    int speed;
+    double speed;
     int vx;
     int vy;
     int x;
     int y;
 
- public:
+    T * color;
+
+public:
 
   Creature();
 

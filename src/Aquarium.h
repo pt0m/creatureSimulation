@@ -24,11 +24,11 @@ private :
    void user_interaction(unsigned char key);
 
 public :
-   Aquarium( int width, int height, int _delay );
+   Aquarium();
    ~Aquarium( void );
 
    Medium & getMedium( void ) { return *aqua; }
-
+ 
    void run( void );
 
 };

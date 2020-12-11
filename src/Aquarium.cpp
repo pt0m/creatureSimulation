@@ -2,22 +2,26 @@
 
 #include "Medium.h"
 
-#include "ICreature"
+#include "ICreature.h"
 
+#include "Config.h"
 
-Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
-{
+Aquarium::Aquarium() : CImgDisplay()
+{	
+	Config* config_singleton = Config::get_instance()
+	int screen_width 	= 1280; //screen_width();
+	int screen_height 	= 1024; //screen_height();
+	int width 			= config_singleton->get_config_int("width"); 
+	int height 			= config_singleton->get_config_int("height");
+	int delay 			= config_singleton->get_config_int("delay");
 
-   int         screen_width = 1280; //screen_width();
-   int         screen_height = 1024; //screen_height();
+	cout << "const Aquarium" << endl;
 
+	aqua = new Medium( width, height );
 
-   cout << "const Aquarium" << endl;
+	assign( *aqua, "Simulation d'ecosysteme" );
 
-   aqua = new Medium( width, height );
-   assign( *aqua, "Simulation d'ecosysteme" );
-
-   move( static_cast<int>((screen_width-width)/2), static_cast<int>((screen_height-height)/2) );
+	move( static_cast<int>((screen_width-width)/2), static_cast<int>((screen_height-height)/2) );
 
 }
 
@@ -25,9 +29,9 @@ Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( 
 Aquarium::~Aquarium( void )
 {
 
-   delete aqua;
+	delete aqua;
 
-   cout << "dest Aquarium" << endl;
+	cout << "dest Aquarium" << endl;
 
 }
 
@@ -35,26 +39,26 @@ Aquarium::~Aquarium( void )
 void Aquarium::run( void )
 {
 
-   cout << "running Aquarium" << endl;
+	cout << "running Aquarium" << endl;
 
-   while ( ! is_closed() )
-   {
+	while ( ! is_closed() )
+	{
 
-      // cout << "iteration de la simulation" << endl;
+		// cout << "iteration de la simulation" << endl;
 
-      if ( is_key() ) {
-         cout << "Vous avez presse la touche " << static_cast<unsigned char>( key() );
-         cout << " (" << key() << ")" << endl;
-         this->user_interaction(static_cast<unsigned char>(key()));
-         if ( is_keyESC() ) close();
-      }
+		if ( is_key() ) {
+			cout << "Vous avez presse la touche " << static_cast<unsigned char>( key() );
+			cout << " (" << key() << ")" << endl;
+			this->user_interaction(static_cast<unsigned char>(key()));
+			if ( is_keyESC() ) close();
+		}
 
-      aqua->step();
-      display( *aqua );
+		aqua->step();
+		display( *aqua );
 
-      wait( delay );
+		wait( delay );
 
-   } // while
+	} // while
 
 }
 

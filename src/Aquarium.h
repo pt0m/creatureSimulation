@@ -1,5 +1,5 @@
-#ifndef _AQUARIUM_H_
-#define _AQUARIUM_H_
+#ifndef AQUARIUM_H
+#define AQUARIUM_H
 
 
 #include <iostream>
@@ -28,7 +28,7 @@ public :
    ~Aquarium( void );
 
    Medium & getMedium( void ) { return *aqua; }
- 
+
    void run( void );
 
 };

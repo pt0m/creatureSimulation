@@ -67,7 +67,7 @@ void Creature::action(const Medium &myMedium) {
     this->lifetime = this->lifetime - 1;
     if (lifetime == 0)
     {
-        this.~Creature();
+        this->~Creature();
     }
 }
 

@@ -9,30 +9,28 @@ const double      Creature::LIMIT_VIEW = 30.;
 const double      Creature::MAX_SPEED = 10.;
 
 Creature::Creature() {
-    std::cout << "Init creature from empty";
+  std::cout << "Init creature from empty";
 }
 
 Creature::Creature(const Creature &c) {
-    this->camouflage = c.camouflage;
-    this->lifetime = c.lifetime;
-    this->size = c.size;
-    this->speed = c.speed;
-    this->vx = c.vx;
-    this->vy = c.vy;
-    this->x = c.x;
-    this->y = c.y;
+  this->camouflage = c.camouflage;
+  this->lifetime = c.lifetime;
+  this->size = c.size;
+  this->speed = c.speed;
+  this->vx = c.vx;
+  this->vy = c.vy;
+  this->x = c.x;
+  this->y = c.y;
 }
 
-
 void Creature::action(const Medium &myMedium) {
-    std::cout << "Empty implementation";
+  std::cout << "Empty implementation";
 }
 
 void Creature::draw(UImg &support) {
 
-    std::cout << "Empty implementation";
+  std::cout << "Empty implementation";
 }
-
 
 const double Creature::get_camouflage() { return camouflage; }
 
@@ -49,8 +47,8 @@ const double Creature::get_vx() { return vx; }
 const double Creature::get_vy() { return vy; }
 
 void Creature::init_coords(const int x, const int y) {
-    this->x = 0;
-    this->y = 0;
+  this->x = 0;
+  this->y = 0;
 }
 
 const bool Creature::is_collision_deadly() { return true; }

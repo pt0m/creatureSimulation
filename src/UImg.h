@@ -1,8 +1,7 @@
 #ifndef _UIMG_H_
 #define _UIMG_H_
 
-
-class UImg{};
+class UImg {};
 // Comment out for compiling performances
 //#include "CImg.h"
 //

@@ -1,25 +1,27 @@
-#include "ICreature.h"
-#include "Farsighted.h"
-
 #include <cmath>        // sqrt
 #include <list>
 #include <memory>       // std::unique_ptr
 
+#include "Config.h"
+#include "Farsighted.h"
+#include "ICreature.h"
+#include "Medium.h"
+
 
 Farsighted::Farsighted(){
     Config* cfg = Config::get_instance();
-    thid->nb_dt_forecast = cfg->get_config_int("nb_dt_forecast");
+    this->nb_dt_forecast = cfg->get_config_int("nb_dt_forecast");
 }
 
 
 std::unique_ptr<IBehaviour> Farsighted::clone_behaviour(){
-    return std::make_unique<Farsighted>()
+    return std::make_unique<Farsighted>();
 }
 
 
-void Farsighted::next_step(ICreature* creature, Medium& my_medium){
+void Farsighted::next_step(ICreature* creature, Medium* my_medium){
 
-    std::unique_ptr<List<ICreature>> neighbours = list_neighbours(*creature);
+    std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(creature);
     unsigned int nb_neighbours = neighbours->size();
 
     int new_x = creature->get_x();
@@ -31,22 +33,24 @@ void Farsighted::next_step(ICreature* creature, Medium& my_medium){
     float neigh_size;
     float sq_sizes;
     float sq_dist, sq_sum_size;
-    List<ICreature>::iterator neighbour;
+    std::list<ICreature*>::iterator iter;
+    ICreature* it;
 
     // Predict positions of neighbours at t+dt, t+2dt ..., t+nb_dt_forecast*dt.
     // The creature will avoid the closest (in time) collision risk.
-    for (unsigned int dt = 1; dt <= thid->nb_dt_forecast; dt++){
+    for (unsigned int dt = 1; dt <= this->nb_dt_forecast; dt++){
 
         // Predict the creature position.
         pred_self_x = new_x + creature->get_vx()*dt;
         pred_self_y = new_y + creature->get_vy()*dt;
 
         // Go trough the neighbours list to check is there is no colision risk.
-        for (it=neighbours.begin(); it!=neighbours.end(); ++it){
+        for (iter=neighbours->begin(); iter!=neighbours->end(); ++iter){
+            it = *iter;
 
             // Predict relative position of the 2 creatures.
-            pred_rela_x = it->get_x() + it->get_vx*dt - pred_self_x;
-            pred_rela_y = it->get_y() + it->get_vy*dt - pred_self_y;
+            pred_rela_x = it->get_x() + it->get_vx()*dt - pred_self_x;
+            pred_rela_y = it->get_y() + it->get_vy()*dt - pred_self_y;
 
             sq_dist = pred_rela_x*pred_rela_x+pred_rela_y*pred_rela_y;
             neigh_size = it->get_size();
@@ -58,7 +62,8 @@ void Farsighted::next_step(ICreature* creature, Medium& my_medium){
                 // trajectory.
 
                 // Define the unit vector of the neighbour trajectory.
-                float neigh_vx = it->get_vx(); neigh_vy = it->get_vy;
+                float neigh_vx = it->get_vx();
+                float neigh_vy = it->get_vy();
                 float norm_v_neigh = sqrt(neigh_vx*neigh_vx+neigh_vy*neigh_vy);
                 float u_dir_x=neigh_vx/norm_v_neigh;
                 float u_dir_y=neigh_vy/norm_v_neigh;

@@ -1,19 +1,20 @@
-#include "ICreature.h"
-#include "Kamikaze.h"
-
 #include <cmath>        // sqrt
 #include <list>
 #include <memory>       // std::unique_ptr
 
+#include "Kamikaze.h"
+#include "ICreature.h"
+#include "Medium.h"
+
 
 std::unique_ptr<IBehaviour> Kamikaze::clone_behaviour(){
-    return std::make_unique<Kamikaze>()
+    return std::make_unique<Kamikaze>();
 }
 
 
-void Kamikaze::next_step(ICreature* creature, Medium& my_medium){
+void Kamikaze::next_step(ICreature* creature, Medium* my_medium){
 
-    std::unique_ptr<List<ICreature>> neighbours = list_neighbours(*creature);
+    std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(creature);
     unsigned int nb_neighbours = neighbours->size();
 
     int new_x = creature->get_x();
@@ -28,8 +29,10 @@ void Kamikaze::next_step(ICreature* creature, Medium& my_medium){
         int target_x, target_y, curr_x,curr_y;
 
         // Go trough the neighbours list to find the closest
-        List<ICreature>::iterator neighbour;
-        for (it=neighbours.begin(); it!=neighbours.end(); ++it){
+        std::list<ICreature*>::iterator iter;
+        ICreature* it;
+        for (iter=neighbours->begin(); iter!=neighbours->end(); ++iter){
+            it = *iter;
             curr_x = it->get_x();
             curr_y = it->get_y();
             curr_sq_dist = curr_x*curr_x+curr_y*curr_y;
@@ -42,7 +45,7 @@ void Kamikaze::next_step(ICreature* creature, Medium& my_medium){
         }
 
         double dir_x = target_x-new_x;
-        double dir_y = target_y-mean_y;
+        double dir_y = target_y-new_y;
         double dir_norm = sqrt(dir_x*dir_x+dir_y*dir_y);
 
         double speed_norm = creature->get_speed();

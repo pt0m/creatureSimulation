@@ -1,9 +1,11 @@
 #include "IBehaviour.h"
+#include "ICreature.h"
+#include "Medium.h"
 
 
 /* This function handle the borders of the medium: if a creature hit a border,
 // its normal speed components is changed into its opposit. */
-void IBehaviour::handle_border(ICreature* creature,Medium& my_medium,int new_x,int new_y){
+void IBehaviour::handle_border(ICreature* creature,Medium* my_medium,int new_x,int new_y){
     int limit_x = my_medium->get_width()-1;
     if (new_x<0 || new_x>limit_x){
         new_x = (new_x<0)?0:limit_x;

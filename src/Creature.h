@@ -9,20 +9,20 @@
 class Creature : public ICreature {
 
 private:
-    static const double AFF_SIZE;
-    static const double LIMIT_VIEW;
-    static const double MAX_SPEED;
+    static const float AFF_SIZE;
+    static const float LIMIT_VIEW;
+    static const float MAX_SPEED;
 
 
 private:
-    double camouflage;
+    float camouflage;
     int identity;
     int lifetime;
     float orientation;
     float size;
-    double speed;
-    double vx;
-    double vy;
+    float speed;
+    float vx;
+    float vy;
     int x;
     int y;
 
@@ -36,31 +36,31 @@ public:
 
     void draw(UImg &support) override;
 
-    void init_coords(const int x, const int y) override;
+    const bool is_detected(const ICreature &c) override;
 
     const bool is_collision_deadly() override;
 
-    const bool is_detected(const ICreature &c) override;
+    const float get_speed() override;
 
-    const double get_camouflage() override;
+    const float get_camouflage() override;
 
     const int get_lifetime() override;
 
-    const double get_speed() override;
+    const float get_size() override;
 
     const int get_x() override;
 
     const int get_y() override;
 
-    const double get_vx() override;
+    const float get_vx() override;
 
-    const double get_vy() override;
-
-    void set_camouflage(const int new_val) override;
+    const float get_vy() override;
 
     void set_lifetime(const int new_val) override;
 
-    void set_speed(const double new_val) override;
+    void set_coords(const int x, const int y) override;
+
+    void set_vx_vy(const int vx, const int vy) override;
 
 };
 

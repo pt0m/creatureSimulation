@@ -12,11 +12,6 @@ class ICreature {
     // Define operations that can be altered by decorators
 public:
     ~ICreature() = default;
-
-class ICreature {
-    // Define operations that can be altered by decorators
-public:
-    ~ICreature() = default;
     virtual void action(const Medium &myMedium) = 0;
 
     virtual void draw(UImg &support) = 0;

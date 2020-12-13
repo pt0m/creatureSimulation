@@ -7,29 +7,46 @@
 #include "Factory.h"
 #include "ICreature.h"
 #include "UImg.h"
+#include "Factory.h"
+#include "Config.h"
 
-// Mutual inclusion
-class ICreature;
+#include <memory>
+#include <list>
 
+using namespace std;
 
-class Medium {
-    private:
-        std::list<ICreature*> list_creatures;
-        Factory creature_factory;
-        int max_birth;
-        int width, height;
-        float birthrate;
-        float proba_clone;
-    public:
-        Medium();
-        int get_width();
-        int get_height();
-        std::list<ICreature*>* get_list_creatures();
-        void add_creature(const ICreature& creature);
-        void collide(ICreature* c1, ICreature* c2);
-        void kill_creature(ICreature* creature);
-        std::unique_ptr<std::list<ICreature*>> list_neighbours(const ICreature* creature);
-        void step();
+class Medium : public UImg {
+
+ private :
+  static const T white[];
+  int width, height;
+  list<ICreature *> list_creatures;
+  Factory creature_factory;
+  int max_birth;
+  float proba_clone;
+
+ public :
+  Medium(int _width, int _height);
+
+  ~Medium(void);
+
+  void add_creature(const ICreature &c);
+
+  void collide(ICreature &c1, ICreature &c2);
+
+  unique_ptr<list<ICreature *>> get_creatures_list();
+
+  int get_height(void) const;
+
+  int get_width(void) const;
+
+  void kill_creature(ICreature &c);
+
+  unique_ptr<list<ICreature *>> list_neighbours(const ICreature &c) const;
+
+  int nb_neighbours(const ICreature &c) const;
+
+  void step(void);
 };
 
 #endif // MEDIUM_H

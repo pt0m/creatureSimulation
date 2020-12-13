@@ -1,5 +1,6 @@
 #include "Creature.h"
 #include "Config.h"
+#include "utils.h"
 
 #include <vector>
 #include <cmath>
@@ -12,11 +13,11 @@ Creature::Creature() {
 
   float max_speed = config_singleton->get_config_float("max_speed");
   float min_speed = config_singleton->get_config_float("min_speed");
-  this->speed = static_cast<double>(std::rand() % max_speed + min_speed);
+  this->speed = rand_range(min_speed, max_speed, 10000)
 
   float max_size = config_singleton->get_config_int("max_size");
   float min_size = config_singleton->get_config_int("min_size");
-  this->size = std::rand() % max_size + min_size;
+  this->size = rand_range(min_size, max_size, 10000)
 
   // set the first position
   int width = config_singleton->get_config_int("width");
@@ -24,17 +25,17 @@ Creature::Creature() {
   this->x = rand() % width;
   this->y = rand() % height;
 
-  this->orientation = 2. * 3.14 / static_cast<double>(std::rand() % 360);
+  this->orientation = rand_range(0, 2 * M_PI, 10000)
 
   int max_lifetime = config_singleton->get_config_int("max_lifetime");
   int min_lifetime = config_singleton->get_config_int("min_lifetime");
-  this->lifetime = std::rand() % min_lifetime + max_lifetime;
+  this->lifetime = rand_range(min_lifetime, max_lifetime, 10000)
 
   this->vx = (this->speed) * cos(this->orientation);
   this->vy = (this->speed) * sin(this->orientation);
 
   float max_camouflage = config_singleton->get_config_float("max_camouflage");
-  this->camouflage = (std::rand() % max_camouflage) / 100.;
+  this->camouflage = rand_range(0.0, max_camouflage, 10000)
 
   this->identity = Creature::NEXT_IDENTITY;
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
@@ -69,7 +70,6 @@ void Creature::action(Medium &myMedium) {
 }
 
 void Creature::draw(UImg &support) const {
-
   double xt = x + cos(orientation) * this->size / 2.1;
   double yt = y - sin(orientation) * this->size / 2.1;
 

@@ -29,7 +29,7 @@ Creature::Creature(std::unique_ptr<IBehaviour> behaviour) {
     this->y = rand() % height;
     
     //set the orientation
-    this->orientation = 2.*M_PI/static_cast<double>(std::rand() % M_PI);
+    this->orientation = 2.*M_PI*static_cast<double>(std::rand() % 180)/180.;
     
     //set the lifetime
     int max_lifetime = config_singleton -> get_config_int("max_lifetime");

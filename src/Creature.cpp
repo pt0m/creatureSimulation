@@ -68,7 +68,7 @@ Creature::Creature(const Creature &c) {
     this->x = c->x;
     this->y = c->y;
     this->color = c->color;
-    this->behaviour = c->behaviour;
+    this->behaviour = c->behaviour->clone_behaviour();
     this->identity = Creature::NEXT_IDENTITY;
     Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }

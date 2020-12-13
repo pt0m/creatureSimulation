@@ -2,6 +2,7 @@
 #define CREATURE_H
 
 #include "ICreature.h"
+#include "IBehaviour.h"
 #include "Medium.h"
 #include "UImg.h"
 
@@ -11,6 +12,7 @@ class Creature : public ICreature {
   static uint NEXT_IDENTITY = 0;
 
  private:
+  unique_ptr<IBehaviour> behaviour;
   float camouflage;
   int identity;
   int lifetime;

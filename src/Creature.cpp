@@ -59,6 +59,7 @@ Creature::Creature(const Creature &c) {
   this->y = c.y;
   this->color = c.color;
   this->identity = Creature::NEXT_IDENTITY;
+  this->behaviour = c.behaviour
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 

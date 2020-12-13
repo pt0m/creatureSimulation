@@ -3,8 +3,10 @@
 
 #include "ICreature.h"
 #include "Medium.h"
-#include "UImg.h"
+#include "IBehaviour.h"
 
+#include "UImg.h"
+#include <memory>
 
 class Creature : public ICreature {
 
@@ -23,12 +25,13 @@ private:
     int vy;
     int x;
     int y;
+    IBehaviour behaviour;
 
     T * color;
 
 public:
 
-    Creature();
+    Creature(std::unique_ptr<IBehaviour> behaviour);
 
     Creature(const Creature &c);
 

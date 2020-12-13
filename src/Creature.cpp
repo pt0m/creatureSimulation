@@ -53,9 +53,9 @@ Creature::Creature(std::unique_ptr<IBehaviour> behaviour) {
 
     // set the color
     color = new T[ 3 ];
-   color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+    color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+    color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 }
 
 Creature::Creature(const Creature &c) {

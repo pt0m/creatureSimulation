@@ -15,9 +15,9 @@ all: $(EXEC)
 
 $(EXEC): $(OBJ)
 	echo "$@"
-	$(CC) -o $@ $^ $(LDFLAGS)
+	#$(CC) -o $@ $^ $(LDFLAGS)
 
-%.o: %.cpp
+%.o: %.cpp %.h
 	echo "$@"
 	$(CC) -o $@ -c $< $(CFLAGS)
 

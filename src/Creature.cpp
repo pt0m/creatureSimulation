@@ -56,7 +56,6 @@ Creature::Creature(std::unique_ptr<IBehaviour> behaviour) {
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-
 }
 
 Creature::Creature(const Creature &c) {
@@ -74,11 +73,10 @@ Creature::Creature(const Creature &c) {
     Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 
-
 void Creature::action(const Medium &myMedium) {
     this->behaviour->action(this, myMedium);
     this->lifetime = this->lifetime - 1;
-}
+
 
 void Creature::draw(UImg &support) {
 
@@ -92,6 +90,7 @@ void Creature::draw(UImg &support) {
 
 const float Creature::get_camouflage() { return camouflage; }
 
+
 const int Creature::get_lifetime() { return lifetime; }
 
 const int Creature::get_speed() { return speed; }
@@ -104,6 +103,10 @@ const int Creature::get_vx() { return vx; }
 
 const int Creature::get_vy() { return vy; }
 
+void Creature::init_coords(const int x, const int y) {
+  this->x = 0;
+  this->y = 0;
+}
 
 
 const bool Creature::is_collision_deadly() { return true; }

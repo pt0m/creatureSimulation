@@ -2,6 +2,10 @@
 
 This repository contain the source code of the final project for the C++ courses.
 
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
 ## Context of the project
 

@@ -29,11 +29,10 @@ private:
 
     T * color;
 
-public:
+
+ public:
 
     Creature(std::unique_ptr<IBehaviour> behaviour);
-
-    Creature(const Creature &c);
 
     ~Creature();
 
@@ -61,14 +60,12 @@ public:
 
     const int get_vy() override;
 
-    void set_camouflage(const float new_val) override;
-
     void set_lifetime(const int new_val) override;
 
     void set_speed(const int new_val) override;
 
-};
 
+};
 
 #endif //CREATURE_H
 

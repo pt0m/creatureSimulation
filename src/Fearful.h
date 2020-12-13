@@ -5,6 +5,8 @@
 
 #include "IBehaviour.h"
 #include "ICreature.h"
+#include "Medium.h"
+
 
 class Fearful : public IBehaviour{
     private:
@@ -15,7 +17,7 @@ class Fearful : public IBehaviour{
     public:
         Fearful();
         std::unique_ptr<IBehaviour> clone_behaviour();
-        void next_step(ICreature* creature, Medium& my_medium);
+        void next_step(ICreature* creature, Medium* my_medium);
 };
 
 #endif //FEARFUL_H

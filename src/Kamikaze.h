@@ -5,12 +5,14 @@
 
 #include "IBehaviour.h"
 #include "ICreature.h"
+#include "Medium.h"
+
 
 class Kamikaze : public IBehaviour{
 
     public:
         std::unique_ptr<IBehaviour> clone_behaviour();
-        void next_step(ICreature* creature, Medium& my_medium);
+        void next_step(ICreature* creature, Medium* my_medium);
 
 };
 

@@ -5,9 +5,11 @@
 
 #include "IBehaviour.h"
 #include "ICreature.h"
+#include "Medium.h"
 
 //Number of atomic behaviours that can be used for the Schizophrenic
 #define NB_BEHAVIOURS 4
+
 
 class Schizophrenic : public IBehaviour{
 
@@ -20,7 +22,7 @@ class Schizophrenic : public IBehaviour{
     public:
         Schizophrenic();
         std::unique_ptr<IBehaviour> clone_behaviour();
-        void next_step(ICreature* creature, Medium& my_medium);
+        void next_step(ICreature* creature, Medium* my_medium);
 };
 
 #endif //SCHIZOPHRENIC_H

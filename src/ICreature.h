@@ -4,6 +4,7 @@
 #include "Medium.h"
 #include "UImg.h"
 
+class Medium;
 class ICreature {
   // Define operations that can be altered by decorators
  public:

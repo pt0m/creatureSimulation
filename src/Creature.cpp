@@ -7,6 +7,8 @@
 #include <iostream>
 #include <cstdlib>
 
+uint Creature::NEXT_IDENTITY = 0;
+
 Creature::Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
                    float speed, float size, int x, int y) {
   this->x = x;

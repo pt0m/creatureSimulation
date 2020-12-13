@@ -9,7 +9,7 @@
 class Creature : public ICreature {
 
  private:
-  static uint NEXT_IDENTITY = 0;
+  static uint NEXT_IDENTITY;
 
  private:
   unique_ptr<IBehaviour> behaviour;

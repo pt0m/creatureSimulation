@@ -5,13 +5,18 @@
 #include "Factory.h"
 #include "Config.h"
 
+#include <memory>
+#include <list>
+
+using namespace std;
+
 class Medium : public UImg {
 
  private :
   static const T white[];
   int width, height;
-  List<ICreature> listCreatures;
-  Factory creatureFactory;
+  list<ICreature *> list_creatures;
+  Factory creature_factory;
   int max_birth;
   float proba_clone;
 
@@ -20,21 +25,23 @@ class Medium : public UImg {
 
   ~Medium(void);
 
-  void addCreature(const ICreature &c);
+  void add_creature(const ICreature &c);
 
   void collide(ICreature &c1, ICreature &c2);
 
-  int getHeight(void) const;
+  unique_ptr<list<ICreature *>> get_creatures_list();
 
-  int getWidth(void) const;
+  int get_height(void) const;
 
-  void killCreature(ICreature &c);
+  int get_width(void) const;
 
-  std::unique_ptr<List<ICreature>> listNeighbours(const ICreature &c) const;
+  void kill_creature(ICreature &c);
 
-  int nbNeighbours(const ICreature &c) const;
+  unique_ptr<list<ICreature *>> list_neighbours(const ICreature &c) const;
+
+  int nb_neighbours(const ICreature &c) const;
 
   void step(void);
 };
 
-#endif
+#endif // MEDIUM_H

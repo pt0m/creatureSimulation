@@ -1,7 +1,5 @@
-#ifndef IBEHAVIOUR_H
-#define IBEHAVIOUR_H
-
 #include "IBehaviour.h"
+
 
 /* This function handle the borders of the medium: if a creature hit a border,
 // its normal speed components is changed into its opposit. */

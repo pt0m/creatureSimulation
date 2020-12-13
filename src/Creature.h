@@ -7,61 +7,58 @@
 
 class Creature : public ICreature {
 
-private:
-    static uint NEXT_IDENTITY
+ private:
+  static uint NEXT_IDENTITY = 0;
 
+ private:
+  float camouflage;
+  int identity;
+  int lifetime;
+  float orientation;
+  float size;
+  float speed;
+  float vx;
+  float vy;
+  int x;
+  int y;
 
-private:
-    float camouflage;
-    int identity;
-    int lifetime;
-    float orientation;
-    float size;
-    double speed;
-    int vx;
-    int vy;
-    int x;
-    int y;
+  T *color;
 
-    T * color;
-
-public:
+ public:
 
   Creature();
 
   Creature(const Creature &c);
 
-    ~Creature();
+  ~Creature();
 
-    void action(const Medium &myMedium) override;
+  void action(Medium &myMedium) override;
 
-  void draw(UImg &support) override;
+  void draw(UImg &support) const override;
 
-    void set_coords(const int x, const int y) override;
+  float get_camouflage() const override;
 
-  const bool is_collision_deadly() override;
+  int get_lifetime() const override;
 
-  const bool is_detected(const ICreature &c) override;
+  float get_speed() const override;
 
-    const float get_camouflage() override;
+  int get_x() const override;
 
-  const int get_lifetime() override;
+  int get_y() const override;
 
-    const int get_speed() override;
+  float get_vx() const override;
 
-  const int get_x() override;
+  float get_vy() const override;
 
-  const int get_y() override;
+  bool is_collision_deadly() const override;
 
-    const int get_vx() override;
+  bool is_detected(const ICreature &c) const override;
 
-    const int get_vy() override;
-
-    void set_camouflage(const float new_val) override;
+  void set_coords(const int x, const int y) override;
 
   void set_lifetime(const int new_val) override;
 
-    void set_speed(const int new_val) override;
+  void set_vx_vy(const int vx, const int vy) override;
 
 };
 

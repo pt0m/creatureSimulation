@@ -8,17 +8,17 @@
 class Medium;
 
 class ICreature {
-    // Define operations that can be altered by decorators
-public:
-    ~ICreature() = default;
+  // Define operations that can be altered by decorators
+ public:
+  ~ICreature() = default;
 
-    virtual void action(const Medium &myMedium) = 0;
+  virtual void action(Medium &myMedium) = 0;
 
-  virtual void draw(UImg &support) = 0;
+  virtual void draw(UImg &support) const = 0;
 
   virtual bool is_detected(const ICreature &c) const = 0;
 
-  virtual bool is_collision_deadly() = 0;
+  virtual bool is_collision_deadly() const = 0;
 
   virtual float get_speed() const = 0;
 
@@ -30,7 +30,7 @@ public:
 
   virtual int get_x() const = 0;
 
-    virtual void set_coords(const int x, const int y) = 0;
+  virtual int get_y() const = 0;
 
   virtual float get_vx() const = 0;
 

@@ -28,7 +28,8 @@ class Creature : public ICreature {
 
  public:
 
-  Creature();
+  Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
+           float speed, float size, int x, int y);
 
   Creature(const Creature &c);
 

@@ -7,45 +7,19 @@
 #include <iostream>
 #include <cstdlib>
 
-Creature::Creature() {
-
-  Config *config_singleton = Config::get_instance();
-
-  float max_speed = config_singleton->get_config_float("max_speed");
-  float min_speed = config_singleton->get_config_float("min_speed");
-  this->speed = rand_range(min_speed, max_speed, 10000)
-
-  float max_size = config_singleton->get_config_int("max_size");
-  float min_size = config_singleton->get_config_int("min_size");
-  this->size = rand_range(min_size, max_size, 10000)
-
-  // set the first position
-  int width = config_singleton->get_config_int("width");
-  int height = config_singleton->get_config_int("height");
-  this->x = rand() % width;
-  this->y = rand() % height;
-
-  this->orientation = rand_range(0, 2 * M_PI, 10000)
-
-  int max_lifetime = config_singleton->get_config_int("max_lifetime");
-  int min_lifetime = config_singleton->get_config_int("min_lifetime");
-  this->lifetime = rand_range(min_lifetime, max_lifetime, 10000)
-
+Creature::Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
+                   float speed, float size, int x, int y) {
+  this->x = x;
+  this->y = y;
+  this->speed = speed;
+  this->lifetime = lifetime;
+  this->size = size;
+  this->behaviour = move(behaviour);
+  this->orientation = rand_range(0, 2 * M_PI, 10000);
   this->vx = (this->speed) * cos(this->orientation);
   this->vy = (this->speed) * sin(this->orientation);
-
-  float max_camouflage = config_singleton->get_config_float("max_camouflage");
-  this->camouflage = rand_range(0.0, max_camouflage, 10000)
-
   this->identity = Creature::NEXT_IDENTITY;
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
-
-//   TODO : set new color based on behavior
-//  color = new T[3];
-//  color[0] = static_cast<int>( static_cast<double>( rand()) / RAND_MAX * 230. );
-//  color[1] = static_cast<int>( static_cast<double>( rand()) / RAND_MAX * 230. );
-//  color[2] = static_cast<int>( static_cast<double>( rand()) / RAND_MAX * 230. );
-
 }
 
 Creature::Creature(const Creature &c) {
@@ -59,7 +33,7 @@ Creature::Creature(const Creature &c) {
   this->y = c.y;
   this->color = c.color;
   this->identity = Creature::NEXT_IDENTITY;
-  this->behaviour = c.behaviour
+  this->behaviour = c.behaviour->clone_behaviour();
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 

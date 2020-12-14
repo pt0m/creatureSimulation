@@ -12,13 +12,13 @@ class ICreature {
  public:
   ~ICreature() = default;
 
-  virtual void action(const Medium &myMedium) = 0;
+  virtual void action(Medium &myMedium) = 0;
 
-  virtual void draw(UImg &support) = 0;
+  virtual void draw(UImg &support) const = 0;
 
   virtual bool is_detected(const ICreature &c) const = 0;
 
-  virtual bool is_collision_deadly() = 0;
+  virtual bool is_collision_deadly() const = 0;
 
   virtual float get_speed() const = 0;
 

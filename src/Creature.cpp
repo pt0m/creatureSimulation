@@ -25,7 +25,6 @@ Creature::Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
 }
 
 Creature::Creature(const Creature &c) {
-  this->camouflage = c.camouflage;
   this->lifetime = c.lifetime;
   this->size = c.size;
   this->speed = c.speed;
@@ -54,7 +53,7 @@ void Creature::draw(UImg &support) const {
   support.draw_circle(xt, yt, this->size / 2., color);
 }
 
-float Creature::get_camouflage() const { return camouflage; };
+float Creature::get_camouflage() const { return 0; };
 
 int Creature::get_lifetime() const { return lifetime; };
 

@@ -13,7 +13,6 @@ class Creature : public ICreature {
 
  private:
   unique_ptr<IBehaviour> behaviour;
-  float camouflage;
   int identity;
   int lifetime;
   float orientation;

@@ -15,6 +15,8 @@
 
 using namespace std;
 
+class ICreature;
+
 class Medium : public UImg {
 
  private :

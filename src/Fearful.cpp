@@ -24,7 +24,7 @@ std::unique_ptr<IBehaviour> Fearful::clone_behaviour(){
 
 void Fearful::next_step(ICreature* creature, Medium* my_medium){
 
-    std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(creature);
+    std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(*creature);
     int nb_neighbours = neighbours->size();
 
     int new_x = creature->get_x();

@@ -14,7 +14,7 @@ std::unique_ptr<IBehaviour> Kamikaze::clone_behaviour(){
 
 void Kamikaze::next_step(ICreature* creature, Medium* my_medium){
 
-    std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(creature);
+    std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(*creature);
     unsigned int nb_neighbours = neighbours->size();
 
     int new_x = creature->get_x();

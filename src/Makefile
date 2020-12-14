@@ -1,20 +1,20 @@
 export PATH := $(PATH):./src
 
 CC=g++
-CFLAGS=-W
+CFLAGS=-W -std=c++17
 LDFLAGS=
 EXEC=simulation
-# SRC=main.cpp Config.cpp Aquarium.cpp Medium.cpp Factory.cpp Creature.cpp \
-# 	Fin.cpp Shell.cpp Ears.cpp Eyes.cpp Camouflage.cpp IBehaviour.cpp \
-# 	Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp
-SRC=IBehaviour.cpp Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp
+# SRC=main.cpp Config.cpp Aquarium.cpp Medium.cpp Creature.cpp \
+# 	Fin.cpp Shell.cpp Ears.cpp Eyes.cpp Camouflage.cpp pp \
+
+SRC=Config.cpp Factory.cpp IBehaviour.cpp Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp
 OBJ=$(SRC:.cpp=.o)
 
 all: $(EXEC)
-	echo "$@"
+	echo "all: $@"
 
 $(EXEC): $(OBJ)
-	echo "$@"
+	echo "exec: $(OBJ)"
 	#$(CC) -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp %.h
@@ -28,4 +28,4 @@ clean:
 .PHONY: clean
 	echo "$@"
 
-.SILENT:
+# .SILENT:

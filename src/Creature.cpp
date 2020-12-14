@@ -11,25 +11,27 @@ uint Creature::NEXT_IDENTITY = 0;
 
 Creature::Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
                    float speed, float size, int x, int y) {
-  this->x = x;
-  this->y = y;
-  this->speed = speed;
-  this->lifetime = lifetime;
-  this->size = size;
   this->behaviour = move(behaviour);
-  this->orientation = rand_range(0, 2 * M_PI, 10000);
-  this->vx = (this->speed) * cos(this->orientation);
-  this->vy = (this->speed) * sin(this->orientation);
+  this->color = color;
   this->identity = Creature::NEXT_IDENTITY;
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
+  this->lifetime = lifetime;
+  this->orientation = rand_range(0, 2 * M_PI, 10000);
+  this->size = size;
+  this->speed = speed;
+  this->vx = (this->speed) * cos(this->orientation);
+  this->vy = (this->speed) * sin(this->orientation);
+  this->x = x;
+  this->y = y;
 }
 
 Creature::Creature(const Creature &c) {
   this->lifetime = c.lifetime;
   this->size = c.size;
   this->speed = c.speed;
-  this->vx = c.vx;
-  this->vy = c.vy;
+  // Clones go in the opposite directions
+  this->vx = -c.vx;
+  this->vy = -c.vy;
   this->x = c.x;
   this->y = c.y;
   this->color = c.color;

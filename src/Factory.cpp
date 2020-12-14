@@ -1,5 +1,3 @@
-#include <cstdlib>      // std::rand()
-
 #include "Config.h"
 #include "Fearful.h"
 #include "Farsighted.h"
@@ -10,6 +8,8 @@
 #include "Schizophrenic.h"
 #include "UImg.h"
 #include "utils.cpp"
+
+#include <cstdlib>      // std::rand()
 
 
 Factory::Factory(){
@@ -77,6 +77,7 @@ ICreature* Factory::create_creature(){
     T* color;
     int n = std::rand()%this->pop_total;
 
+    // Find the behaviour of n with a cumulative sum of behaviours population.
     if (n<pop_farsighted){
         behaviour = std::make_unique<Farsighted>();
         color = this->color_farsighted;

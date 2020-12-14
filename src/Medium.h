@@ -1,32 +1,27 @@
 #ifndef MEDIUM_H
 #define MEDIUM_H
 
-#include <list>
-#include <memory>       // std::unique_ptr
-
-#include "Factory.h"
 #include "ICreature.h"
 #include "UImg.h"
 #include "Factory.h"
-#include "Config.h"
 
-#include <memory>
+#include <memory>       // std::unique_ptr
 #include <list>
 
-using namespace std;
+class ICreature;
 
 class Medium : public UImg {
 
  private :
   static const T white[];
   int width, height;
-  list<ICreature *> list_creatures;
+  std::list<ICreature *> list_creatures;
   Factory creature_factory;
   int max_birth;
   float proba_clone;
 
  public :
-  Medium(int _width, int _height);
+  Medium();
 
   ~Medium(void);
 
@@ -34,7 +29,7 @@ class Medium : public UImg {
 
   void collide(ICreature &c1, ICreature &c2);
 
-  unique_ptr<list<ICreature *>> get_creatures_list();
+  std::unique_ptr<std::list<ICreature *>> get_creatures_list();
 
   int get_height(void) const;
 
@@ -42,7 +37,7 @@ class Medium : public UImg {
 
   void kill_creature(ICreature &c);
 
-  unique_ptr<list<ICreature *>> list_neighbours(const ICreature &c) const;
+  std::unique_ptr<std::list<ICreature *>> list_neighbours(const ICreature &c) const;
 
   int nb_neighbours(const ICreature &c) const;
 

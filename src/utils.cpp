@@ -3,6 +3,7 @@
 #include "utils.h"
 
 
+
 /* The precision is the number of points between inf and sup. The returned
 // value is one on these values. 
 */

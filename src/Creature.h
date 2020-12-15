@@ -15,7 +15,6 @@ class Creature : public ICreature {
   unique_ptr<IBehaviour> behaviour;
   int identity;
   int lifetime;
-  float orientation;
   float size;
   float speed;
   float vx;

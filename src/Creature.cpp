@@ -3,7 +3,7 @@
 #include "utils.h"
 
 #include <vector>
-#include <cmath>
+#include <cmath> // for cos, sin, acos and sqrt  
 #include <iostream>
 #include <cstdlib>
 
@@ -16,11 +16,11 @@ Creature::Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
   this->identity = Creature::NEXT_IDENTITY;
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
   this->lifetime = lifetime;
-  this->orientation = rand_range(0, 2 * M_PI, 10000);
+  float orientation = rand_range(0, 2 * M_PI, 10000);
   this->size = size;
   this->speed = speed;
-  this->vx = (this->speed) * cos(this->orientation);
-  this->vy = (this->speed) * sin(this->orientation);
+  this->vx = (this->speed) * cos(orientation);
+  this->vy = (this->speed) * sin(orientation);
   this->x = x;
   this->y = y;
 }
@@ -48,6 +48,15 @@ void Creature::action(Medium &myMedium) {
 }
 
 void Creature::draw(UImg &support) const {
+  float orientation = 0; 
+  if(vy>=0)
+  {
+    orientation = acos(vx/(sqrt(vx*vx + vy*vy)));
+  }
+  else
+  {
+    orientation = 2 * M_PI - acos(vx/(sqrt(vx*vx + vy*vy)));
+  }
   double xt = x + cos(orientation) * this->size / 2.1;
   double yt = y - sin(orientation) * this->size / 2.1;
 

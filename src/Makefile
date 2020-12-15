@@ -4,10 +4,13 @@ CC=g++
 CFLAGS=-W -std=c++17
 LDFLAGS=
 EXEC=simulation
-# SRC=main.cpp Config.cpp Aquarium.cpp Medium.cpp Creature.cpp \
+# SRC=main.cpp Config.cpp   \
 # 	Fin.cpp Shell.cpp Ears.cpp Eyes.cpp Camouflage.cpp pp \
 
-SRC=Config.cpp Factory.cpp IBehaviour.cpp Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp
+SRC=Aquarium.cpp Medium.cpp Creature.cpp \
+	Config.cpp Factory.cpp utils.cpp \
+	IBehaviour.cpp \
+	Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp
 OBJ=$(SRC:.cpp=.o)
 
 all: $(EXEC)
@@ -22,10 +25,10 @@ $(EXEC): $(OBJ)
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
-	echo "$@"
+	echo "clean"
 	rm -rf *.o $(EXEC)
 
 .PHONY: clean
-	echo "$@"
+	echo "PHONY"
 
-# .SILENT:
+.SILENT:

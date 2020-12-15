@@ -16,7 +16,7 @@ float Fin::get_speed() const {
 }
 
 void Fin::draw(UImg &support) const {
-    CreatureDecorator::draw(UImg &support);
+    CreatureDecorator::draw(support);
     //we will have to draw something more after that to plot the shell
     /*
      * add here the code to draw the shell (creature is already drawn)

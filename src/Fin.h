@@ -5,8 +5,11 @@
 #ifndef CREATURESIMULATION_FIN_H
 #define CREATURESIMULATION_FIN_H
 
+#include "CreatureDecorator.h"
+#include "ICreature.h"
+#include "UImg.h"
 
-class Fin: public CreatureDecrorator{
+class Fin: public CreatureDecorator {
 public:
     Fin(ICreature* c);
     float get_speed() const override;

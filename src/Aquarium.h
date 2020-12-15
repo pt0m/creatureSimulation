@@ -1,11 +1,11 @@
 #ifndef AQUARIUM_H
 #define AQUARIUM_H
 
+#include "CImg.h"
+
 #include <iostream>
-#include <CImg.h>
 #include <list>
 
-using namespace std;
 using namespace cimg_library;
 
 class Medium;

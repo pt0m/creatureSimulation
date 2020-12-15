@@ -1,15 +1,9 @@
-#ifndef _UIMG_H_
-#define _UIMG_H_
+#ifndef UIMG_H
+#define UIMG_H
 
-class UImg {};
-// Comment out for compiling performances
-//#include "CImg.h"
+#include "CImg.h"
 
-//using namespace cimg_library;
-
-
-typedef unsigned char      T;
-//typedef CImg<T>            UImg;
-
+typedef unsigned char T;
+typedef cimg_library::CImg<T> UImg;
 
 #endif

@@ -6,9 +6,11 @@ CreatureDecorator::CreatureDecorator(ICreature *c) : decoree(c) {};
 
 // Default implementations of methods that can be decorated
 
-void action(Medium &myMedium){
+void CreatureDecorator::action(Medium &myMedium){ 
   this->decoree->action(myMedium);
 }
+
+
 
 
 

@@ -1,4 +1,5 @@
 #include "Config.h"
+#include "Creature.h"
 #include "Fearful.h"
 #include "Farsighted.h"
 #include "Gregarious.h"
@@ -105,7 +106,7 @@ ICreature* Factory::create_creature(){
     float speed  = rand_range(this->speed_min, this->speed_max, 1000);
     float size   = rand_range(this->size_min, this->size_max, 1000);
 
-    ICreature* creature=new Creature(behaviour,color,lifetime,speed,size,x,y);
+    ICreature* creature = new Creature(std::move(behaviour),color,lifetime,speed,size,x,y);
 
     return creature;
 }

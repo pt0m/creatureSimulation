@@ -12,7 +12,7 @@ class Creature : public ICreature {
   static uint NEXT_IDENTITY;
 
  private:
-  unique_ptr<IBehaviour> behaviour;
+  std::unique_ptr<IBehaviour> behaviour;
   int identity;
   int lifetime;
   float orientation;
@@ -27,7 +27,7 @@ class Creature : public ICreature {
 
  public:
 
-  Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
+  Creature(std::unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
            float speed, float size, int x, int y);
 
   Creature(const Creature &c);
@@ -41,6 +41,8 @@ class Creature : public ICreature {
   float get_camouflage() const override;
 
   int get_lifetime() const override;
+
+  float get_size() const override;
 
   float get_speed() const override;
 

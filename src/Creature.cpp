@@ -59,6 +59,8 @@ float Creature::get_camouflage() const { return 0; };
 
 int Creature::get_lifetime() const { return lifetime; };
 
+float Creature::get_size() const { return size; };
+
 float Creature::get_speed() const { return speed; };
 
 int Creature::get_x() const { return x; };

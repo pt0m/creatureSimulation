@@ -5,7 +5,7 @@
 #include "ICreature.h"
 #include "UImg.h"
 
-Class Shell : public CreatureDecorator{
+class Shell : public CreatureDecorator{
   public:
   Shell(ICreature* c); 
   bool is_collision_deadly() const override;

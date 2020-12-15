@@ -1,13 +1,12 @@
 #ifndef CREATURE_H
 #define CREATURE_H
 
-#include "ICreature.h"
 #include "IBehaviour.h"
+#include "ICreature.h"
 #include "Medium.h"
 #include "UImg.h"
 
 class Creature : public ICreature {
-
  private:
   static uint NEXT_IDENTITY;
 
@@ -15,7 +14,6 @@ class Creature : public ICreature {
   std::unique_ptr<IBehaviour> behaviour;
   int identity;
   int lifetime;
-  float orientation;
   float size;
   float speed;
   float vx;
@@ -63,8 +61,6 @@ class Creature : public ICreature {
   void set_lifetime(const int new_val) override;
 
   void set_vx_vy(const int vx, const int vy) override;
-
 };
 
-#endif //CREATURE_H
-
+#endif  // CREATURE_H

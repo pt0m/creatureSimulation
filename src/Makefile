@@ -10,7 +10,8 @@ EXEC=simulation
 SRC=Aquarium.cpp Medium.cpp Creature.cpp \
 	Config.cpp Factory.cpp utils.cpp \
 	IBehaviour.cpp \
-	Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp
+	Gregarious.cpp Fearful.cpp Kamikaze.cpp Farsighted.cpp Schizophrenic.cpp \
+	CreatureDecorator.cpp Shell.cpp Camouflage.cpp Fin.cpp
 OBJ=$(SRC:.cpp=.o)
 
 all: $(EXEC)

@@ -21,7 +21,7 @@ class Medium : public UImg {
   float proba_clone;
 
  public :
-  Medium();
+  Medium(int width, int height);
 
   ~Medium(void);
 

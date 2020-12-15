@@ -8,8 +8,8 @@
 using namespace std;
 const T    Medium::white[] = {(T) 255, (T) 255, (T) 255};
 
-Medium::Medium() {
-  // TODO : add member initializer for UImg (see above)
+Medium::Medium(int width, int height) : UImg(width, height, 1, 3),
+                                        width(width), height(height) {
   Config *config_singleton = Config::get_instance();
   max_birth = config_singleton->get_config_int("max_birth");
   proba_clone = config_singleton->get_config_float("proba_clone");
@@ -23,9 +23,9 @@ Medium::~Medium(void) {
 
 void Medium::add_creature(const ICreature &c) {
 
-  c->
-      list_creatures.insert(0, c);
-  list_creatures.back().initCoords(width, height);
+  //TODO
+//  c-> list_creatures.insert(0, c);
+//  list_creatures.back().initCoords(width, height);
 }
 
 void Medium::collide(ICreature &c1, ICreature &c2) {
@@ -49,9 +49,9 @@ int Medium::nb_neighbours(const ICreature &c) const {
   return nb;
 }
 
-std::unique_ptr<std::list<ICreature>> Medium::list_neighbours(const ICreature &c) const {
+std::unique_ptr<std::list<ICreature *>> Medium::list_neighbours(const ICreature &c) const {
   // TODO : code for the list of the detected creatures
-  return list_creatures
+  return NULL;
 
 };
 

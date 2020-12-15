@@ -10,7 +10,7 @@
 
 uint Creature::NEXT_IDENTITY = 0;
 
-Creature::Creature(unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
+Creature::Creature(std::unique_ptr<IBehaviour> behaviour, T *color, int lifetime,
                    float speed, float size, int x, int y) {
   this->behaviour = move(behaviour);
   this->color = color;

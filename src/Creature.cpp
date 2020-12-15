@@ -1,11 +1,12 @@
 #include "Creature.h"
+
+#include <cmath>  // for cos, sin, acos and sqrt
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+
 #include "Config.h"
 #include "utils.h"
-
-#include <vector>
-#include <cmath> // for cos, sin, acos and sqrt  
-#include <iostream>
-#include <cstdlib>
 
 uint Creature::NEXT_IDENTITY = 0;
 
@@ -40,7 +41,7 @@ Creature::Creature(const Creature &c) {
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 
-Creature::~Creature() {};
+Creature::~Creature(){};
 
 void Creature::action(Medium &myMedium) {
   std::cout << "Empty implementation";
@@ -48,19 +49,17 @@ void Creature::action(Medium &myMedium) {
 }
 
 void Creature::draw(UImg &support) const {
-  float orientation = 0; 
-  if(vy>=0)
-  {
-    orientation = acos(vx/(sqrt(vx*vx + vy*vy)));
-  }
-  else
-  {
-    orientation = 2 * M_PI - acos(vx/(sqrt(vx*vx + vy*vy)));
+  float orientation = 0;
+  if (vy >= 0) {
+    orientation = acos(vx / (sqrt(vx * vx + vy * vy)));
+  } else {
+    orientation = 2 * M_PI - acos(vx / (sqrt(vx * vx + vy * vy)));
   }
   double xt = x + cos(orientation) * this->size / 2.1;
   double yt = y - sin(orientation) * this->size / 2.1;
 
-  support.draw_ellipse(x, y, this->size, this->size / 5., -orientation / M_PI * 180., color);
+  support.draw_ellipse(x, y, this->size, this->size / 5.,
+                       -orientation / M_PI * 180., color);
   support.draw_circle(xt, yt, this->size / 2., color);
 }
 
@@ -93,5 +92,3 @@ void Creature::set_vx_vy(const int new_vx, const int new_vy) {
 }
 
 void Creature::set_lifetime(const int new_val) { this->lifetime = new_val; }
-
-

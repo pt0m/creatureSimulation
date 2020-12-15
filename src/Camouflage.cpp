@@ -7,13 +7,13 @@ Camouflage::Camouflage(ICreature *c) : CreatureDecorator(c){
 }
 
 
-float get_camouflage(){
+float Camouflage::get_camouflage() const{
   float original_camouflage = CreatureDecorator::get_camouflage();
   // those two variable should be imported from the config file 
   float camouflage_efficiency = 0.3;
   float max_camouflage = 0.9;
   float new_camouflage = original_camouflage + camouflage_efficiency;
-  return std::min(original, max_camouflage);
+  return std::min(new_camouflage, max_camouflage);
 }
 
 

@@ -43,7 +43,7 @@ bool CreatureDecorator::is_collision_deadly() const {
 }
 
 bool CreatureDecorator::is_detected(const ICreature &c) const {
-  return this->decoree->is_detected();
+  return this->decoree->is_detected(c);
 }
 
 void CreatureDecorator::set_coords(const int x, const int y) {

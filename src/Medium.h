@@ -9,6 +9,7 @@
 #include <list>
 
 class ICreature;
+class Factory;
 
 class Medium : public UImg {
 
@@ -16,7 +17,7 @@ class Medium : public UImg {
   static const T white[];
   int width, height;
   std::list<ICreature *> list_creatures;
-  Factory creature_factory;
+  Factory* creature_factory;
   int max_birth;
   float proba_clone;
 

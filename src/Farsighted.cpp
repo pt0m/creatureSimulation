@@ -22,7 +22,6 @@ std::unique_ptr<IBehaviour> Farsighted::clone_behaviour(){
 void Farsighted::next_step(ICreature* creature, Medium* my_medium){
 
     std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(*creature);
-    unsigned int nb_neighbours = neighbours->size();
 
     int new_x = creature->get_x();
     int new_y = creature->get_y();
@@ -32,7 +31,7 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
     float self_size = creature->get_size();
     float sum_sizes;
     float sq_sizes;
-    float sq_dist, sq_sum_size;
+    float sq_dist;
     std::list<ICreature*>::iterator iter;
     ICreature* it;
 

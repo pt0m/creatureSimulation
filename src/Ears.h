@@ -7,7 +7,7 @@
 
 class Ears: public CreatureDecorator {
 private:
-    float detection_capacity;
+    float detection_capacity_ears;
     float max_range;
 public:
     Ears(ICreature* c);

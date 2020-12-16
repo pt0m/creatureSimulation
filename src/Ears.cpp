@@ -4,19 +4,19 @@
 #include <cstdlib>
 
 Ears::Ears(ICreature *c): CreatureDecorator(c) {
-    this->detection_capacity = float(std::rand())/float(RAND_MAX);
+    this->detection_capacity_ears = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
-    this->max_range = config_singleton->get_config_float("max_range_detection") * (float(std::rand())/float(RAND_MAX));
+    this->max_range = config_singleton->get_config_float("max_range_detection_ears") * (float(std::rand())/float(RAND_MAX));
 }
 
 bool Ears::is_detected(const ICreature &c) const {
     bool already_detected = CreatureDecorator::is_detected(c);
     bool detected = false;
     if (!already_detected){
-        float camouflage_capacity = c->get_camouflage();
+        float camouflage_capacity = c.get_camouflage();
 
-        if (camouflage_capacity < this->detection_capacity) {
+        if (camouflage_capacity < this->detection_capacity_ears) {
 
             int x_pos = c->get_x();
             int y_pos = c->get_y();

@@ -16,7 +16,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ)
 	echo "Linking and generating binary ..."
-	#$(CC) -o $@ $(prefixe $(OBIR), $^) $(LDFLAGS)
+	$(CC) -o $@ $(prefixe $(OBIR), $^) $(LDFLAGS)
 
 %.o: %.cpp %.h
 	echo "Compiling $< ..."

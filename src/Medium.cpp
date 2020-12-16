@@ -12,6 +12,8 @@ Medium::Medium(int width, int height) :
   Config *config_singleton = Config::get_instance();
   max_birth = config_singleton->get_config_int("max_birth");
   proba_clone = config_singleton->get_config_float("proba_clone");
+  creature_factory = new Factory();
+//  std::list < ICreature * > list_creatures;
   std::cout << "const Medium" << std::endl;
   std::srand(time(NULL));
 }

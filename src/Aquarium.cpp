@@ -17,7 +17,8 @@ Aquarium::Aquarium(std::string filename) : CImgDisplay() {
 
   // from CImg library
   assign(*aqua, "Simulation d'ecosysteme");
-  move(static_cast<int>((screen_width - width) / 2), static_cast<int>((screen_height - height) / 2));
+  move(static_cast<int>((screen_width - width) / 2),
+       static_cast<int>((screen_height - height) / 2));
 
 }
 

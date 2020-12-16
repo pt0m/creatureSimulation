@@ -27,7 +27,7 @@ class Config {
  private:
   static Config *singleton;
 
-  Config();
+  Config() = default;
 
   void parse_str();
 

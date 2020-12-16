@@ -1,6 +1,7 @@
 #include "Config.h"
 #include "Creature.h"
 #include "Fearful.h"
+#include "Factory.h"
 #include "Farsighted.h"
 #include "Gregarious.h"
 #include "IBehaviour.h"
@@ -8,7 +9,7 @@
 #include "Kamikaze.h"
 #include "Schizophrenic.h"
 #include "UImg.h"
-#include "utils.cpp"
+#include "utils.h"
 
 #include <cstdlib>      // std::rand()
 

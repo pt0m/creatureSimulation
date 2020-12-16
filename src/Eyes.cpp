@@ -44,9 +44,18 @@ bool Eyes::is_detected(const ICreature &c) const {
 
 void Eyes::draw(UImg &support) const{
     CreatureDecorator::draw(support);
-    //we will have to draw something more after that to plot the shell
-    /*
-     * add here the code to draw the shell (creature is already drawn)
-     */
+
+    float size =  this->get_size();
+    int r = int(size/20);
+
+    int x0 = this->get_x();
+    int y0 = this->get_y();
+
+    T* black = new T[ 3 ];
+    black[ 0 ] = 0;
+    black[ 1 ] = 0;
+    black[ 2 ] = 0;
+
+    support.draw_ellipse(x0,y0,r,r,0,black,1,2);
 
 }

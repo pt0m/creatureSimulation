@@ -39,9 +39,28 @@ bool Ears::is_detected(const ICreature &c) const {
 
 void Ears::draw(UImg &support) const{
     CreatureDecorator::draw(support);
-    //we will have to draw something more after that to plot the shell
-    /*
-     * add here the code to draw the shell (creature is already drawn)
-     */
+
+    float size =  this->get_size();
+    int x0 = int(size/10);
+    int y0 = int(size/10);
+
+    int x1 = this->get_x() + x0;
+    int y1 = this->get_y() + y0;
+
+    int x2 = this->get_x() - x0;
+    int y2 = this->get_y() + y0;
+
+    int x3 = this->get_x();
+    int y3 = this->get_y() - y0;
+
+    T* black = new T[ 3 ];
+    black[ 0 ] = 0;
+    black[ 1 ] = 0;
+    black[ 2 ] = 0;
+
+    support.draw_triangle(x1,y1,x2,y2,x3,y3,black,1,2);
+
+
+
 
 }

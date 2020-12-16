@@ -14,8 +14,10 @@ Medium::Medium(int width, int height) :
   max_birth = config_singleton->get_config_int("max_birth");
   proba_clone = config_singleton->get_config_float("proba_clone");
   creature_factory = new Factory();
-//  std::list < ICreature * > list_creatures;
   std::cout << "const Medium" << std::endl;
+  add_creature();
+  add_creature();
+  add_creature();
   add_creature();
   add_creature();
   add_creature();
@@ -54,6 +56,7 @@ bool Medium::collide(ICreature &c1, ICreature &c2) {
   int vx, vy;
   bool is_c1_dead = c1.is_collision_deadly();
   if (is_c1_dead) {
+    std::cout << "kill c1 collide" << std::endl;
     kill_creature(c1);
   } else {
     vx = c1.get_vx();
@@ -62,7 +65,9 @@ bool Medium::collide(ICreature &c1, ICreature &c2) {
   }
   bool is_c2_dead = c2.is_collision_deadly();
   if (is_c2_dead) {
+    std::cout << "kill c2 collide" << std::endl;
     kill_creature(c2);
+    std::cout << "killed c2 collide" << std::endl;
   } else {
     vx = c2.get_vx();
     vy = c2.get_vy();
@@ -105,21 +110,31 @@ Medium::list_neighbours(const ICreature &c) const {
 void Medium::step(void) {
   // macro from CImg, x and y are just variable names
   cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
-  std::cout << "step medium" << std::endl;
   bool is_dead;
+
+  std::cout << "step medium" << std::endl;
   for (ICreature *c : list_creatures) {
     // Move
+    std::cout << "action" << std::endl;
     c->action(*this);
     // Check for collisions
     for (ICreature *other : list_creatures) {
       if (c->get_identity() != other->get_identity()) {
         if (are_colliding(*c, *other)) {
+          std::cout << "are colliding" << std::endl;
           is_dead = collide(*c, *other);
+          if (is_dead) {
+            break;
+          }
         }
       }
     }
+    if (is_dead) {
+      continue;
+    }
     // The creature is too old
     if ((c->get_lifetime() <= 0) && (!is_dead)) {
+      std::cout << "creature too old" << std::endl;
       is_dead = true;
       kill_creature(*c);
     }
@@ -131,7 +146,6 @@ void Medium::step(void) {
 //      }
     }
   }
-  std::cout << "step medium" << std::endl;
 }
 
 std::list<ICreature *> &Medium::get_creatures_list() {

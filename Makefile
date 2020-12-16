@@ -8,14 +8,16 @@ CXXFLAGS=-W -std=c++17 $(INCLUDE:%=-I%)
 LDFLAGS=
 TARGET=simulation
 
+HDR=$(foreach dir, $(INCLUDE), $(wildcard $(dir)*.h))
 SRC=$(foreach dir, $(INCLUDE), $(wildcard $(dir)*.cpp))
 OBJ=$(SRC:.cpp=.o)
 
 all: $(TARGET)
 	echo "Done !"
 
-$(TARGET): $(OBJ)
-	$(CC) -o $@ $(addprefix $(ODIR), $(notdir $^)) $(LDFLAGS)
+$(TARGET): $(OBJ) $(HDR)
+	echo "Linking project ..."
+	$(CC) -o $@ $(HDR) $(addprefix $(ODIR), $(notdir $(OBJ))) $(LDFLAGS)
 
 %.o: %.cpp
 	echo "Compiling $< ..."
@@ -27,4 +29,4 @@ clean:
 
 .PHONY: #clean
 
-.SILENT:
+# .SILENT:

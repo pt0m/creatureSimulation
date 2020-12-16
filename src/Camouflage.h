@@ -8,7 +8,7 @@
 class Camouflage : public CreatureDecorator{
   private:
   	float max_camouflage;
-  	float camouflage_efficency;
+  	float camouflage_efficiency;
   public:
   Camouflage(ICreature* c); 
   float get_camouflage() const override;

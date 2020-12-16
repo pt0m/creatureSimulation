@@ -1,6 +1,7 @@
 #include "Camouflage.h"
-#include <cstdlib>
+#include <cstdlib> // for rand  and RAND_MAX
 #include <algorithm> // for min(float , float) function 
+#include "Config.h"
 
 
 Camouflage::Camouflage(ICreature *c) : CreatureDecorator(c){
@@ -27,8 +28,6 @@ float Camouflage::get_camouflage() const{
 void Camouflage::draw(UImg &support) const{
   CreatureDecorator::draw(support);
   //we will have to draw something more after that to plot the shell
-  /*
-   * add here the code to draw the shell (creature is already drawn)
-   */
+  // add here the code to draw the camouflage here (creature is already drawn)
   
 }

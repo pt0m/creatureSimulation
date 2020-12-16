@@ -7,6 +7,9 @@
 
 class Fin: public CreatureDecorator {
 public:
+	float fin_mult_coef;
+
+public:
     Fin(ICreature* c);
     float get_speed() const override;
     void draw(UImg &support) const override;

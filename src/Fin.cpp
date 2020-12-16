@@ -25,7 +25,7 @@ void Fin::draw(UImg &support) const {
     int x1 = this->get_x() - x0;
     int y1 = this->get_y() - y0;
 
-    int x2 = this->get_x() - x0;
+    int x2 = this->get_x() + x0;
     int y2 = this->get_y() - y0;
 
     int x3 = this->get_x();

@@ -4,16 +4,23 @@
 
 
 Camouflage::Camouflage(ICreature *c) : CreatureDecorator(c){
+  Config* config_singleton = Config::get_instance();
+  this->max_camouflage = config_singleton->get_config_float("max_camouflage");
+
+  float max_camouflage_efficency = 
+          config_singleton->get_config_float("max_camouflage_efficency");
+  float min_camouflage_efficency = 
+          config_singleton->get_config_float("min_camouflage_efficency");
+  float rnd = float(std::rand()) / float(RAND_MAX);
+  this->camouflage_efficiency = rnd * (max_camouflage_efficency - min_camouflage_efficency) + min_camouflage_efficency;
 }
 
 
 float Camouflage::get_camouflage() const{
   float original_camouflage = CreatureDecorator::get_camouflage();
   // those two variable should be imported from the config file 
-  float camouflage_efficiency = 0.3;
-  float max_camouflage = 0.9;
-  float new_camouflage = original_camouflage + camouflage_efficiency;
-  return std::min(new_camouflage, max_camouflage);
+  float new_camouflage = original_camouflage + this->camouflage_efficiency;
+  return std::min(new_camouflage, this->max_camouflage);
 }
 
 

@@ -1,9 +1,5 @@
-//
-// Created by Ménard Luc on 15/12/2020.
-//
-
-#ifndef CREATURESIMULATION_FIN_H
-#define CREATURESIMULATION_FIN_H
+#ifndef FIN_H
+#define FIN_H
 
 #include "CreatureDecorator.h"
 #include "ICreature.h"
@@ -17,4 +13,4 @@ public:
 };
 
 
-#endif //CREATURESIMULATION_FIN_H
+#endif //FIN_H

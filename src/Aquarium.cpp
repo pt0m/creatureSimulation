@@ -10,10 +10,10 @@ Aquarium::Aquarium(std::string filename) : CImgDisplay() {
   int screen_height = 1024; //screen_height();
   int width = config_singleton->get_config_int("width");
   int height = config_singleton->get_config_int("height");
-  int delay = config_singleton->get_config_int("delay");
+  this->delay = config_singleton->get_config_int("delay");
 
   std::cout << "const Aquarium" << std::endl;
-  aqua = new Medium(width, height);
+  this->aqua = new Medium(width, height);
 
   // from CImg library
   assign(*aqua, "Simulation d'ecosysteme");

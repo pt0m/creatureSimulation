@@ -20,6 +20,8 @@ class ICreature {
 
   virtual float get_camouflage() const = 0;
 
+  virtual int get_identity() const = 0;
+
   virtual int get_lifetime() const = 0;
 
   virtual float get_size() const = 0;

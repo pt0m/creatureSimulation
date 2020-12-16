@@ -68,6 +68,8 @@ void Creature::draw(UImg &support) const {
 
 float Creature::get_camouflage() const { return 0; };
 
+int Creature::get_identity() const { return identity; }
+
 int Creature::get_lifetime() const { return lifetime; };
 
 float Creature::get_size() const { return size; };

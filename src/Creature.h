@@ -40,6 +40,8 @@ class Creature : public ICreature {
 
   float get_camouflage() const override;
 
+  int get_identity() const override;
+
   int get_lifetime() const override;
 
   float get_size() const override;

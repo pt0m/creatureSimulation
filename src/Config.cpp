@@ -22,9 +22,11 @@ void Config::load_configuration(std::string filename) {
   std::string delimiter = ":";
   std::string line = "";
   while (getline(config_file, line)) {
-    int delimiter_pos = line.find(delimiter);
-    this->variable_names.push_back(line.substr(0, delimiter_pos));
-    this->variable_values.push_back(line.substr(delimiter_pos + delimiter.length()));
+    if(line != ""){
+      int delimiter_pos = line.find(delimiter);
+      this->variable_names.push_back(line.substr(0, delimiter_pos));
+      this->variable_values.push_back(line.substr(delimiter_pos + delimiter.length()));
+    }
   }
   config_file.close();
 }
@@ -39,6 +41,7 @@ std::string Config::get_config_string(std::string variable_name) {
     }
   }
   if (found == 0) {
+    cout << "(!) CONFIG MANQUANTE : " << variable_name << endl;
     return "";
   }
   std::string variable_value = this->variable_values[var_index];

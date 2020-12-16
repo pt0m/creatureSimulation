@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main(){
-   Aquarium aquarium("configuration.cof");
+   Aquarium aquarium("./src/configuration.conf");
    aquarium.run();
 
    return 0;

@@ -10,7 +10,7 @@ class Medium;
 class ICreature {
   // Define operations that can be altered by decorators
  public:
-  ~ICreature() = default;
+  virtual ~ICreature(){};
 
   virtual void action(Medium &myMedium) = 0;
 

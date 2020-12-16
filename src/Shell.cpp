@@ -13,7 +13,7 @@ Shell::Shell(ICreature *c) : CreatureDecorator(c){
           config_singleton->get_config_float("shell_max_speed_mult_coef");
   float shell_min_speed_mult_coef = 
           config_singleton->get_config_float("shell_min_speed_mult_coef");
-  float rnd = float(std::rand()) / float(RAND_MAX);
+  rnd = float(std::rand()) / float(RAND_MAX);
   this->speed_mult_coef = rnd *(shell_max_speed_mult_coef - shell_min_speed_mult_coef) + shell_min_speed_mult_coef;
 }
 

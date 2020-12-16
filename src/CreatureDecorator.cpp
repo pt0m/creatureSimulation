@@ -63,8 +63,3 @@ void CreatureDecorator::set_vx_vy(const int vx, const int vy) {
 }
 
 CreatureDecorator::~CreatureDecorator() { this->decoree->~ICreature(); }
-
-bool operator==( const CreatureDecorator & c1, const CreatureDecorator & c2 )
-{
-    return c1.get_identity()==c2.get_identity();
-}

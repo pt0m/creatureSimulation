@@ -38,7 +38,7 @@ class Creature : public ICreature {
 
   float get_camouflage() const override;
 
-  float get_identity() const override;
+  int get_identity() const override;
 
   int get_lifetime() const override;
 
@@ -64,8 +64,9 @@ class Creature : public ICreature {
 
   void set_vx_vy(const int vx, const int vy) override;
 
-  friend bool operator==( const Creature & c1, const Creature & c2 );
+  friend bool operator==( const Creature & c1, const ICreature & c2 );
 
+  friend bool operator==( const ICreature & c1, const Creature & c2 );
 };
 
 #endif  // CREATURE_H

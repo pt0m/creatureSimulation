@@ -97,7 +97,10 @@ void Creature::set_vx_vy(const int new_vx, const int new_vy) {
 
 void Creature::set_lifetime(const int new_val) { this->lifetime = new_val; }
 
-bool operator==( const Creature & b1, const Creature & b2 )
-{
-  return ( c1.get_identity() == c2.get_identity() );
-}
+bool operator==( const Creature & c1, const ICreature & c2 ){
+	return (c1.get_identity() == c2.get_identity());
+};
+
+bool operator==( const ICreature & c1, const Creature & c2 ){
+	return (c1.get_identity() == c2.get_identity());
+};

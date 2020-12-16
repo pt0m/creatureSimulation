@@ -45,8 +45,6 @@ class CreatureDecorator : public ICreature {
 
   ~CreatureDecorator();  // il faut penser a appeler le destructeur de decoree
 
-  friend bool operator==( const CreatureDecorator & c1, const CreatureDecorator & c2 ) override;
-
 private:
   ICreature *decoree;
 };

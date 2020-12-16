@@ -17,6 +17,13 @@ Shell::Shell(ICreature *c) : CreatureDecorator(c){
   this->speed_mult_coef = rnd *(shell_max_speed_mult_coef - shell_min_speed_mult_coef) + shell_min_speed_mult_coef;
 }
 
+
+ICreature* Shell::clone(){
+    ICreature* c = CreatureDecorator::clone();
+    ICreature* CreatureDecorated = new Shell(c);
+    return CreatureDecorated;
+}
+
 bool Shell::is_collision_deadly() const{
   if(!CreatureDecorator::is_collision_deadly()){
     return false; // if the collision isn't deadly, then the shell do nothing
@@ -39,26 +46,22 @@ float Shell::get_speed() const {
 void Shell::draw(UImg &support) const{
   CreatureDecorator::draw(support);
 
-  float vx = this->get_vx()
-  float vy = this->get_vy();
-
-  float orientation = 0;
-  if (vy >= 0) {
-    orientation = acos(vx / (sqrt(vx * vx + vy * vy)));
-  } else {
-    orientation = 2 * M_PI - acos(vx / (sqrt(vx * vx + vy * vy)));
-  }
   float size =  this->get_size();
-  int x1 = int((size/10)*cos(orientation));
-  int y1 = int((size/10)*sin(orientation));
+  int x0 = int(size/10);
+  int y0 = int(size/10);
 
-  black = new T[ 3 ];
+  T* black = new T[ 3 ];
   black[ 0 ] = 0;
   black[ 1 ] = 0;
   black[ 2 ] = 0;
 
-  support.draw_rectangle()
-  support.draw_rectangle(x+x1,y+y1,x-x1,y-y1,black);
+  int x1 = this->get_x() + x0;
+  int y1 = this->get_y() + y0;
+
+  int x2 = this->get_x() - x0;
+  int y2 = this->get_y() - y0;
+
+  support.draw_rectangle(x1,y1,x2,y2,black,1,2);
 
 }
 

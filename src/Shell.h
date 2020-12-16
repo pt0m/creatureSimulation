@@ -14,6 +14,7 @@ class Shell : public CreatureDecorator{
   bool is_collision_deadly() const override;
   float get_speed() const override;
   void draw(UImg &support) const override;
+  ICreature* clone() override;
 };
 
 

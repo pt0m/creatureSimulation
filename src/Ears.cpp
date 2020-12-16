@@ -7,9 +7,9 @@ Ears::Ears(ICreature *c): CreatureDecorator(c) {
     this->detection_capacity_ears = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
-    float max_range_detection_ears = config_singleton->get_config_float("max_range_detection_ears");
-    float min_range_detection_ears = config_singleton->get_config_float("min_range_detection_ears");
-    this->max_range = (max_range_detection_ears - min_range_detection_ears) * (float(std::rand())/float(RAND_MAX)) + min_range_detection_ears;
+    float max = config_singleton->get_config_float("max_range_detection_ears");
+    float min = config_singleton->get_config_float("min_range_detection_ears");
+    this->max_range = min + (max-min)* (float(std::rand())/float(RAND_MAX));
 }
 
 bool Ears::is_detected(const ICreature &c) const {
@@ -39,11 +39,36 @@ bool Ears::is_detected(const ICreature &c) const {
     return already_detected || detected;
 }
 
+ICreature* Ears::clone(){
+    ICreature* c = CreatureDecorator::clone();
+    ICreature* CreatureDecorated = new Ears(c);
+    return CreatureDecorated;
+}
+
 void Ears::draw(UImg &support) const{
     CreatureDecorator::draw(support);
-    //we will have to draw something more after that to plot the shell
-    /*
-     * add here the code to draw the shell (creature is already drawn)
-     */
+
+    float size =  this->get_size();
+    int x0 = int(size/10);
+    int y0 = int(size/10);
+
+    int x1 = this->get_x() + x0;
+    int y1 = this->get_y() + y0;
+
+    int x2 = this->get_x() - x0;
+    int y2 = this->get_y() + y0;
+
+    int x3 = this->get_x();
+    int y3 = this->get_y() - y0;
+
+    T* black = new T[ 3 ];
+    black[ 0 ] = 0;
+    black[ 1 ] = 0;
+    black[ 2 ] = 0;
+
+    support.draw_triangle(x1,y1,x2,y2,x3,y3,black,1,2);
+
+
+
 
 }

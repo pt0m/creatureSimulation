@@ -14,7 +14,8 @@ private:
 public:
     Eyes(ICreature* c);
     bool is_detected(const ICreature &c) const override;
-    void draw(Uimg &support) const override;
+    void draw(UImg &support) const override;
+    ICreature* clone() override;
 };
 
 #endif //EYES_H

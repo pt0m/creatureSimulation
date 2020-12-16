@@ -33,6 +33,8 @@ class Creature : public ICreature {
   ~Creature();
 
   void action(Medium &myMedium) override;
+  
+  ICreature* clone() override;
 
   void draw(UImg &support) const override;
 

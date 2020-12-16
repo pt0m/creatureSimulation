@@ -14,6 +14,8 @@ class ICreature {
 
   virtual void action(Medium &myMedium) = 0;
 
+  virtual ICreature *clone() = 0;
+
   virtual void draw(UImg &support) const = 0;
 
   virtual float get_camouflage() const = 0;
@@ -43,6 +45,8 @@ class ICreature {
   virtual void set_lifetime(const int lifetime) = 0;
 
   virtual void set_vx_vy(const int vx, const int vy) = 0;
+
+
 };
 
 #endif //ICREATURE_H

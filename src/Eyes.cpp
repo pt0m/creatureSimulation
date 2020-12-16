@@ -7,8 +7,19 @@ Eyes::Eyes(ICreature *c): CreatureDecorator(c) {
     this->detection_capacity_eyes = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
-    this->max_range = config_singleton->get_config_float("max_range_detection_eyes") * (float(std::rand())/float(RAND_MAX));
-    this->max_angle = config_singleton->get_config_float("max_angle_detection_eyes") * (float(std::rand())/float(RAND_MAX));
+    float max_r = config_singleton->get_config_float("max_range_detection_eyes");
+    float min_r = config_singleton->get_config_float("min_range_detection_eyes");
+    this->max_range = min_r + (max_r-min_r)* (float(std::rand())/float(RAND_MAX));
+
+    float max_a = config_singleton->get_config_float("max_angle_detection_eyes");
+    float min_a = config_singleton->get_config_float("min_angle_detection_eyes");
+    this->max_angle = min_a + (max_a-min_a)* (float(std::rand())/float(RAND_MAX));
+}
+
+ICreature* Eyes::clone(){
+    ICreature* c = CreatureDecorator::clone();
+    ICreature* CreatureDecorated = new Eyes(c);
+    return CreatureDecorated;
 }
 
 bool Eyes::is_detected(const ICreature &c) const {
@@ -17,8 +28,8 @@ bool Eyes::is_detected(const ICreature &c) const {
     if (!already_detected){
         float camouflage_capacity = c.get_camouflage();
 
-        int x_pos = c->get_x();
-        int y_pos = c->get_y();
+        int x_pos = c.get_x();
+        int y_pos = c.get_y();
 
         int self_x = this->get_x();
         int self_y = this->get_y();
@@ -35,7 +46,7 @@ bool Eyes::is_detected(const ICreature &c) const {
         float angle = acos((xv*diff_x + yv*diff_x)/norm_speed*norm_distance);
 
         if (angle < this->max_angle && camouflage_capacity < this->detection_capacity_eyes) {
-            detected = distance < this->max_range;
+            detected = norm_distance < this->max_range;
         }
     }
     return already_detected || detected;
@@ -44,9 +55,18 @@ bool Eyes::is_detected(const ICreature &c) const {
 
 void Eyes::draw(UImg &support) const{
     CreatureDecorator::draw(support);
-    //we will have to draw something more after that to plot the shell
-    /*
-     * add here the code to draw the shell (creature is already drawn)
-     */
+
+    float size =  this->get_size();
+    int r = int(size/20);
+
+    int x0 = this->get_x();
+    int y0 = this->get_y();
+
+    T* black = new T[ 3 ];
+    black[ 0 ] = 0;
+    black[ 1 ] = 0;
+    black[ 2 ] = 0;
+
+    support.draw_ellipse(x0,y0,r,r,0,black,1,2);
 
 }

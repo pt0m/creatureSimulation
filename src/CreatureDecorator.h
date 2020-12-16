@@ -9,9 +9,12 @@ class CreatureDecorator : public ICreature {
  public:
   CreatureDecorator(ICreature *c);
 
+  CreatureDecorator::~CreatureDecorator();
   // Methods whose behavior can be modified by concrete decorators
 
   void action(Medium &myMedium) override;
+  
+  ICreature* clone();
 
   void draw(UImg &support) const override;
 

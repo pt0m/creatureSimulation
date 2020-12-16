@@ -1,6 +1,7 @@
 #include "Medium.h"
 #include "Config.h"
 #include "utils.h"
+#include "Creature.h"
 
 #include <ctime>
 #include <iostream>
@@ -15,6 +16,9 @@ Medium::Medium(int width, int height) :
   creature_factory = new Factory();
 //  std::list < ICreature * > list_creatures;
   std::cout << "const Medium" << std::endl;
+  add_creature();
+  add_creature();
+  add_creature();
   std::srand(time(NULL));
 }
 
@@ -87,12 +91,12 @@ int Medium::nb_neighbours(const ICreature &c) const {
 
 std::unique_ptr<std::list<ICreature *>>
 Medium::list_neighbours(const ICreature &c) const {
-  std::unique_ptr<std::list<ICreature *>> neighbours;
+  std::unique_ptr<std::list<ICreature *>> neighbours = std::make_unique < std::list < ICreature * >> ();
   for (ICreature *other : list_creatures) {
     if (c.get_identity() != other->get_identity()) {
-      if (c.is_detected(*other)) {
-        neighbours->push_back(other);
-      }
+//      if (c.is_detected(*other)) {
+      neighbours->push_back(other);
+//      }
     }
   }
   return neighbours;
@@ -120,12 +124,14 @@ void Medium::step(void) {
       kill_creature(*c);
     }
     if (!is_dead) {
+
       c->draw(*this);
-      if (rand_range(0, 1, 1000) < proba_clone) {
-        add_creature_clone(*c);
-      }
+//      if (rand_range(0, 1, 1000) < proba_clone) {
+//        add_creature_clone(*c);
+//      }
     }
   }
+  std::cout << "step medium" << std::endl;
 }
 
 std::list<ICreature *> &Medium::get_creatures_list() {

@@ -7,7 +7,9 @@ Ears::Ears(ICreature *c): CreatureDecorator(c) {
     this->detection_capacity_ears = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
-    this->max_range = config_singleton->get_config_float("max_range_detection_ears") * (float(std::rand())/float(RAND_MAX));
+    float max = config_singleton->get_config_float("max_range_detection_ears");
+    float min = config_singleton->get_config_float("min_range_detection_ears");
+    this->max_range = min + (max-min)* (float(std::rand())/float(RAND_MAX));
 }
 
 bool Ears::is_detected(const ICreature &c) const {

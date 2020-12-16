@@ -7,8 +7,13 @@ Eyes::Eyes(ICreature *c): CreatureDecorator(c) {
     this->detection_capacity_eyes = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
-    this->max_range = config_singleton->get_config_float("max_range_detection_eyes") * (float(std::rand())/float(RAND_MAX));
-    this->max_angle = config_singleton->get_config_float("max_angle_detection_eyes") * (float(std::rand())/float(RAND_MAX));
+    float max_r = config_singleton->get_config_float("max_range_detection_eyes");
+    float min_r = config_singleton->get_config_float("min_range_detection_eyes");
+    this->max_range = min + (max-min)* (float(std::rand())/float(RAND_MAX));
+
+    float max_a = config_singleton->get_config_float("max_angle_detection_eyes");
+    float min_a = config_singleton->get_config_float("min_angle_detection_eyes");
+    this->max_angle = min + (max-min)* (float(std::rand())/float(RAND_MAX));
 }
 
 bool Eyes::is_detected(const ICreature &c) const {

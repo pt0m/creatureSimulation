@@ -29,8 +29,8 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
 
     int pred_self_x, pred_self_y;
     int pred_rela_x, pred_rela_y;
-    float sq_self_size = creature->get_size();
-    float neigh_size;
+    float self_size = creature->get_size();
+    float sum_sizes;
     float sq_sizes;
     float sq_dist, sq_sum_size;
     std::list<ICreature*>::iterator iter;
@@ -53,8 +53,8 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
             pred_rela_y = it->get_y() + it->get_vy()*dt - pred_self_y;
 
             sq_dist = pred_rela_x*pred_rela_x+pred_rela_y*pred_rela_y;
-            neigh_size = it->get_size();
-            sq_sizes = neigh_size*neigh_size+sq_self_size;
+            sum_sizes = it->get_size()+self_size;
+            sq_sizes = sum_sizes*sum_sizes;
 
             // Collision
             if (sq_sizes>=sq_dist){

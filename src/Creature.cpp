@@ -65,6 +65,8 @@ void Creature::draw(UImg &support) const {
 
 float Creature::get_camouflage() const { return 0; };
 
+int Creature::get_identity() const { return identity; }
+
 int Creature::get_lifetime() const { return lifetime; };
 
 float Creature::get_size() const { return size; };
@@ -81,7 +83,7 @@ float Creature::get_vy() const { return vy; };
 
 bool Creature::is_collision_deadly() const { return true; };
 
-bool Creature::is_detected(const ICreature &) const { return false; }
+bool Creature::is_detected(const ICreature &c) const { return false; }
 
 void Creature::set_coords(const int x, const int y) {
   this->x = x;
@@ -94,3 +96,8 @@ void Creature::set_vx_vy(const int new_vx, const int new_vy) {
 }
 
 void Creature::set_lifetime(const int new_val) { this->lifetime = new_val; }
+
+bool operator==( const Creature & b1, const Creature & b2 )
+{
+  return ( c1.get_identity() == c2.get_identity() );
+}

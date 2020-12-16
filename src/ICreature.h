@@ -18,6 +18,8 @@ class ICreature {
 
   virtual float get_camouflage() const = 0;
 
+  virtual int get_identity() const = 0;
+
   virtual int get_lifetime() const = 0;
 
   virtual float get_size() const = 0;
@@ -41,6 +43,8 @@ class ICreature {
   virtual void set_lifetime(const int lifetime) = 0;
 
   virtual void set_vx_vy(const int vx, const int vy) = 0;
+
+  friend bool operator==( const Creature & b1, const Creature & b2 );
 };
 
 #endif //ICREATURE_H

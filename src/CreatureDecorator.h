@@ -17,6 +17,8 @@ class CreatureDecorator : public ICreature {
 
   float get_camouflage() const override;
 
+  int get_identity() const override;
+
   int get_lifetime() const override;
 
   float get_size() const override;
@@ -42,7 +44,10 @@ class CreatureDecorator : public ICreature {
   void set_vx_vy(const int vx, const int vy) override;
 
   ~CreatureDecorator();  // il faut penser a appeler le destructeur de decoree
- private:
+
+  friend bool operator==( const CreatureDecorator & c1, const CreatureDecorator & c2 ) override;
+
+private:
   ICreature *decoree;
 };
 #endif  // CREATUREDECORATOR_H

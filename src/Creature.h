@@ -34,6 +34,8 @@ class Creature : public ICreature {
 
   void action(Medium &myMedium) override;
 
+  ICreature* clone() override;
+
   void draw(UImg &support) const override;
 
   float get_camouflage() const override;

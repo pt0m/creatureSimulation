@@ -47,6 +47,9 @@ void Creature::action(Medium &myMedium) {
   std::cout << "Empty implementation";
   this->lifetime = this->lifetime - 1;
 }
+ICreature *Creature::clone() {
+  return new Creature(*this);
+};
 
 void Creature::draw(UImg &support) const {
   float orientation = 0;

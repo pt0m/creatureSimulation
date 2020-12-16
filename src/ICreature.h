@@ -14,6 +14,8 @@ class ICreature {
 
   virtual void action(Medium &myMedium) = 0;
 
+  virtual ICreature *clone() = 0;
+
   virtual void draw(UImg &support) const = 0;
 
   virtual float get_camouflage() const = 0;

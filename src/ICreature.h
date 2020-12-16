@@ -38,8 +38,6 @@ class ICreature {
 
   virtual void set_coords(const int x, const int y) = 0;
 
-  virtual void set_lifetime(const int lifetime) = 0;
-
   virtual void set_vx_vy(const int vx, const int vy) = 0;
 };
 

@@ -41,7 +41,7 @@ Creature::Creature(const Creature &c) {
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 
-Creature::~Creature(){};
+Creature::~Creature() {};
 
 void Creature::action(Medium &myMedium) {
   std::cout << "Empty implementation";
@@ -93,4 +93,3 @@ void Creature::set_vx_vy(const int new_vx, const int new_vy) {
   this->vy = new_vy;
 }
 
-void Creature::set_lifetime(const int new_val) { this->lifetime = new_val; }

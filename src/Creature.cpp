@@ -44,7 +44,7 @@ Creature::Creature(const Creature &c) {
 Creature::~Creature() {};
 
 void Creature::action(Medium &myMedium) {
-  std::cout << "Empty implementation";
+  this->behaviour->next_step(this,&myMedium);
   this->lifetime = this->lifetime - 1;
 }
 ICreature *Creature::clone() {

@@ -41,7 +41,7 @@ std::string Config::get_config_string(std::string variable_name) {
     }
   }
   if (found == 0) {
-    cout << "(!) CONFIG MANQUANTE : " << variable_name << endl;
+    std::cout << "(!) CONFIG MANQUANTE : " << variable_name << std::endl;
     return "";
   }
   std::string variable_value = this->variable_values[var_index];

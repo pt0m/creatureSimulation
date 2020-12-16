@@ -44,7 +44,7 @@ class ICreature {
 
   virtual void set_vx_vy(const int vx, const int vy) = 0;
 
-  friend bool operator==( const Creature & b1, const Creature & b2 );
+  friend bool operator==( const ICreature & b1, const ICreature & b2 );
 };
 
 #endif //ICREATURE_H

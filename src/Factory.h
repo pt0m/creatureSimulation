@@ -51,7 +51,7 @@ class Factory {
 
         //Initial x,y
         int medium_width;
-        int medium_hight;
+        int medium_height;
 
         //Speed
         int speed_min;

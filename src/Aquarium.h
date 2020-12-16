@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <list>
+#include <string>
 
 using namespace cimg_library;
 
@@ -20,7 +21,7 @@ class Aquarium : public CImgDisplay {
   void user_interaction(unsigned char key);
 
  public :
-  Aquarium();
+  Aquarium(std::string filename);
   ~Aquarium(void);
 
   Medium &getMedium(void) { return *aqua; }

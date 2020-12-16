@@ -25,9 +25,9 @@ class Config {
   void load_configuration(std::string filename);
 
  private:
-  Config();
-
   static Config *singleton;
+
+  Config();
 
   void parse_str();
 

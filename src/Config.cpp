@@ -13,10 +13,6 @@ Config *Config::get_instance() {
   return singleton;
 }
 
-Config::Config() {
-  load_configuration("configuration.conf");
-}
-
 void Config::load_configuration(std::string filename) {
   std::ifstream config_file(filename);
   std::string delimiter = ":";

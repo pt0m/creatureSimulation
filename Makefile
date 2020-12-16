@@ -1,7 +1,7 @@
 CC=g++
 
 INCLUDE=./src/ ./src/behaviours/ ./src/accessories/
-ODIR=./obj
+ODIR=./obj/
 EDIR=.
 
 CXXFLAGS=-W -std=c++17 $(INCLUDE:%=-I%)
@@ -15,10 +15,9 @@ all: $(TARGET)
 	echo "Done !"
 
 $(TARGET): $(OBJ)
-	echo "Linking and generating binary ..."
-	$(CC) -o $@ $(prefixe $(OBIR), $^) $(LDFLAGS)
+	$(CC) -o $@ $(addprefix $(ODIR), $(notdir $^)) $(LDFLAGS)
 
-%.o: %.cpp %.h
+%.o: %.cpp
 	echo "Compiling $< ..."
 	$(CC) -o $(ODIR)/$(notdir $@) -c $< $(CXXFLAGS)
 

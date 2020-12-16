@@ -1,7 +1,3 @@
-//
-// Created by Ménard Luc on 15/12/2020.
-//
-
 #include "Fin.h"
 #include <cstdlib>
 

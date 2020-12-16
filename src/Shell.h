@@ -6,9 +6,13 @@
 #include "UImg.h"
 
 class Shell : public CreatureDecorator{
+  private:
+  float chance_to_survive_with_the_shell;
+  float speed_mult_coef;
   public:
   Shell(ICreature* c); 
   bool is_collision_deadly() const override;
+  float get_speed() const override;
   void draw(UImg &support) const override;
 };
 

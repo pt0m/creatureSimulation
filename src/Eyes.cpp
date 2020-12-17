@@ -4,7 +4,6 @@
 #include <cmath>  // for cos, sin, acos and sqrt
 
 Eyes::Eyes(ICreature *c): CreatureDecorator(c) {
-    this->detection_capacity_eyes = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
     float max_r = config_singleton->get_config_float("max_range_detection_eyes");
@@ -14,9 +13,13 @@ Eyes::Eyes(ICreature *c): CreatureDecorator(c) {
     float max_a = config_singleton->get_config_float("max_angle_detection_eyes");
     float min_a = config_singleton->get_config_float("min_angle_detection_eyes");
     this->max_angle = min_a + (max_a-min_a)* (float(std::rand())/float(RAND_MAX));
+
+    float max_d = config_singleton->get_config_float("ears_quality_max");
+    float min_d = config_singleton->get_config_float("ears_quality_min");
+    this->detection_capacity_eyes = min_d + (max_d-min_d)* (float(std::rand())/float(RAND_MAX));
 }
 
-ICreature* Eyes::clone(){
+ICreature *Eyes::clone(){
     ICreature* c = CreatureDecorator::clone();
     ICreature* CreatureDecorated = new Eyes(c);
     return CreatureDecorated;

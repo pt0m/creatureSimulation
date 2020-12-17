@@ -13,7 +13,7 @@ class Camouflage : public CreatureDecorator{
   Camouflage(ICreature* c); 
   float get_camouflage() const override;
   void draw(UImg &support) const override;
-  ICreature* clone() override;
+  ICreature *clone() override;
 };
 
 

@@ -22,17 +22,16 @@ std::unique_ptr<IBehaviour> Farsighted::clone_behaviour(){
 void Farsighted::next_step(ICreature* creature, Medium* my_medium){
 
     std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(*creature);
-    unsigned int nb_neighbours = neighbours->size();
 
     int new_x = creature->get_x();
     int new_y = creature->get_y();
 
     int pred_self_x, pred_self_y;
     int pred_rela_x, pred_rela_y;
-    float sq_self_size = creature->get_size();
-    float neigh_size;
+    float self_size = creature->get_size();
+    float sum_sizes;
     float sq_sizes;
-    float sq_dist, sq_sum_size;
+    float sq_dist;
     std::list<ICreature*>::iterator iter;
     ICreature* it;
 
@@ -53,8 +52,8 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
             pred_rela_y = it->get_y() + it->get_vy()*dt - pred_self_y;
 
             sq_dist = pred_rela_x*pred_rela_x+pred_rela_y*pred_rela_y;
-            neigh_size = it->get_size();
-            sq_sizes = neigh_size*neigh_size+sq_self_size;
+            sum_sizes = it->get_size()+self_size;
+            sq_sizes = sum_sizes*sum_sizes;
 
             // Collision
             if (sq_sizes>=sq_dist){
@@ -69,10 +68,18 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
                 float u_dir_y=neigh_vy/norm_v_neigh;
 
                 // Compute the reflection (Vt+Vn -> Vt-Vn)
-                float v_t_norm = neigh_vx*u_dir_x+neigh_vy*u_dir_y;
-                float v_n_norm = neigh_vx*u_dir_y-neigh_vy*u_dir_x;
+                float self_vx = creature->get_x();
+                float self_vy = creature->get_y();
+                float v_t_norm = self_vx*u_dir_x+self_vy*u_dir_y;
+                float v_n_norm = self_vx*u_dir_y-self_vy*u_dir_x;
                 double new_vx = u_dir_x*v_t_norm-u_dir_y*v_n_norm;
                 double new_vy = u_dir_y*v_t_norm+u_dir_x*v_n_norm;
+                
+                // Prevend rounding from changing the speed norm
+                double real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+                double expect_norm = creature->get_speed();
+                new_vx *= expect_norm/real_norm;
+                new_vy *= expect_norm/real_norm;
 
                 creature->set_vx_vy(new_vx,new_vy);
 

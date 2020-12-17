@@ -16,7 +16,7 @@ Camouflage::Camouflage(ICreature *c) : CreatureDecorator(c){
   this->camouflage_efficiency = rnd * (max_camouflage_efficency - min_camouflage_efficency) + min_camouflage_efficency;
 }
 
-ICreature* Camouflage::clone(){
+ICreature *Camouflage::clone(){
     ICreature* c = CreatureDecorator::clone();
     ICreature* CreatureDecorated = new Camouflage(c);
     return CreatureDecorated;

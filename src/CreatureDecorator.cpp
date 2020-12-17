@@ -14,7 +14,7 @@ void CreatureDecorator::action(Medium &myMedium) {
   this->decoree->action(myMedium);
 }
 
-ICreature* CreatureDecorator::clone(){
+ICreature *CreatureDecorator::clone(){
   return this->decoree->clone();
 }
 

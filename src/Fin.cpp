@@ -9,7 +9,7 @@ Fin::Fin(ICreature *c): CreatureDecorator(c) {
     this->fin_mult_coef = 1.0 + (max_mult_coef-1.0)*rnd;
 }
 
-ICreature* Fin::clone(){
+ICreature *Fin::clone(){
     ICreature* c = CreatureDecorator::clone();
     ICreature* CreatureDecorated = new Fin(c);
     return CreatureDecorated;

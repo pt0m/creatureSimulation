@@ -8,13 +8,9 @@ Config *Config::singleton = nullptr;
 
 Config *Config::get_instance() {
   if (singleton == nullptr) {
-    singleton = new Config;
+    singleton = new Config();
   }
   return singleton;
-}
-
-Config::Config() {
-  load_configuration("configuration.conf");
 }
 
 void Config::load_configuration(std::string filename) {

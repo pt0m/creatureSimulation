@@ -62,7 +62,7 @@ class Creature : public ICreature {
 
   void set_coords(const int x, const int y) override;
 
-  void set_lifetime(const int new_val) override;
+  void set_lifetime(const int new_lifetime) override;
 
   void set_vx_vy(const int vx, const int vy) override;
 

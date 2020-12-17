@@ -13,7 +13,7 @@ public:
     Fin(ICreature* c);
     float get_speed() const override;
     void draw(UImg &support) const override;
-    ICreature* clone() override;
+    ICreature *clone() override;
 };
 
 

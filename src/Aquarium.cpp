@@ -3,20 +3,22 @@
 #include "ICreature.h"
 #include "Config.h"
 
-Aquarium::Aquarium() : CImgDisplay() {
+Aquarium::Aquarium(std::string filename) : CImgDisplay() {
   Config *config_singleton = Config::get_instance();
+  config_singleton->load_configuration(filename);
   int screen_width = 1280; //screen_width();
   int screen_height = 1024; //screen_height();
   int width = config_singleton->get_config_int("width");
   int height = config_singleton->get_config_int("height");
-  int delay = config_singleton->get_config_int("delay");
+  this->delay = config_singleton->get_config_int("delay");
 
   std::cout << "const Aquarium" << std::endl;
-  aqua = new Medium(width, height);
+  this->aqua = new Medium(width, height);
 
   // from CImg library
   assign(*aqua, "Simulation d'ecosysteme");
-  move(static_cast<int>((screen_width - width) / 2), static_cast<int>((screen_height - height) / 2));
+  move(static_cast<int>((screen_width - width) / 2),
+       static_cast<int>((screen_height - height) / 2));
 
 }
 

@@ -1,15 +1,18 @@
-#include "Ears.h"
+    #include "Ears.h"
 #include "Config.h"
 
 #include <cstdlib> // for rand method and RAND_MAX
 
 Ears::Ears(ICreature *c): CreatureDecorator(c) {
-    this->detection_capacity_ears = float(std::rand())/float(RAND_MAX);
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
     float max = config_singleton->get_config_float("max_range_detection_ears");
     float min = config_singleton->get_config_float("min_range_detection_ears");
     this->max_range = min + (max-min)* (float(std::rand())/float(RAND_MAX));
+    float max_d = config_singleton->get_config_float("ears_quality_max");
+    float min_d = config_singleton->get_config_float("ears_quality_min");
+    this->detection_capacity_ears = min_d + (max_d-min_d)* (float(std::rand())/float(RAND_MAX));
+
 }
 
 bool Ears::is_detected(const ICreature &c) const {
@@ -39,7 +42,7 @@ bool Ears::is_detected(const ICreature &c) const {
     return already_detected || detected;
 }
 
-ICreature* Ears::clone(){
+ICreature *Ears::clone(){
     ICreature* c = CreatureDecorator::clone();
     ICreature* CreatureDecorated = new Ears(c);
     return CreatureDecorated;

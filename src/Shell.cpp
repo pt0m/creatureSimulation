@@ -18,7 +18,7 @@ Shell::Shell(ICreature *c) : CreatureDecorator(c){
 }
 
 
-ICreature* Shell::clone(){
+ICreature *Shell::clone(){
     ICreature* c = CreatureDecorator::clone();
     ICreature* CreatureDecorated = new Shell(c);
     return CreatureDecorated;

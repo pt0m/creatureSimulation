@@ -9,6 +9,7 @@
 #include <list>
 
 class ICreature;
+class Factory;
 
 class Medium : public UImg {
 
@@ -16,20 +17,24 @@ class Medium : public UImg {
   static const T white[];
   int width, height;
   std::list<ICreature *> list_creatures;
-  Factory creature_factory;
+  Factory *creature_factory;
   int max_birth;
   float proba_clone;
+
+  bool are_colliding(const ICreature &c1, const ICreature &c2) const;
 
  public :
   Medium(int width, int height);
 
   ~Medium(void);
 
-  void add_creature(const ICreature &c);
+  void add_creature();
 
-  void collide(ICreature &c1, ICreature &c2);
+  void add_creature_clone(ICreature &c);
 
-  std::unique_ptr<std::list<ICreature *>> get_creatures_list();
+  bool collide(ICreature &c1, ICreature &c2);
+
+  std::list<ICreature *> &get_creatures_list();
 
   int get_height(void) const;
 
@@ -37,7 +42,8 @@ class Medium : public UImg {
 
   void kill_creature(ICreature &c);
 
-  std::unique_ptr<std::list<ICreature *>> list_neighbours(const ICreature &c) const;
+  std::unique_ptr<std::list<ICreature *>>
+  list_neighbours(const ICreature &c) const;
 
   int nb_neighbours(const ICreature &c) const;
 

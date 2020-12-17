@@ -14,7 +14,7 @@ class CreatureDecorator : public ICreature {
 
   void action(Medium &myMedium) override;
   
-  ICreature* clone();
+  ICreature *clone();
 
   void draw(UImg &support) const override;
 

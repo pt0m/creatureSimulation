@@ -18,6 +18,7 @@ Creature::Creature(std::unique_ptr<IBehaviour> behaviour, T *color, int lifetime
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
   this->lifetime = lifetime;
   float orientation = rand_range(0, 2 * M_PI, 10000);
+  std::cout << "orientation : " << orientation << std::endl;
   this->size = size;
   this->speed = speed;
   this->vx = (this->speed) * cos(orientation);
@@ -41,16 +42,21 @@ Creature::Creature(const Creature &c) {
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 
-Creature::~Creature(){};
+Creature::~Creature() {
+  std::cout << "destroy creature" << std::endl;
+};
 
 void Creature::action(Medium &myMedium) {
-  std::cout << "Empty implementation";
+  this->behaviour->next_step(this, &myMedium);
   this->lifetime = this->lifetime - 1;
 }
+ICreature *Creature::clone() {
+  return new Creature(*this);
+};
 
 void Creature::draw(UImg &support) const {
   float orientation = 0;
-  if (vy >= 0) {
+  if (vy <= 0) {
     orientation = acos(vx / (sqrt(vx * vx + vy * vy)));
   } else {
     orientation = 2 * M_PI - acos(vx / (sqrt(vx * vx + vy * vy)));
@@ -90,12 +96,14 @@ void Creature::set_coords(const int x, const int y) {
   this->y = y;
 }
 
+void Creature::set_lifetime(const int new_lifetime) {
+  lifetime = new_lifetime;
+}
+
 void Creature::set_vx_vy(const int new_vx, const int new_vy) {
   this->vx = new_vx;
   this->vy = new_vy;
 }
-
-void Creature::set_lifetime(const int new_val) { this->lifetime = new_val; }
 
 bool operator==( const Creature & c1, const ICreature & c2 ){
 	return (c1.get_identity() == c2.get_identity());

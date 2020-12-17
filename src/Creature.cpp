@@ -110,7 +110,7 @@ void Creature::set_lifetime(const int new_lifetime) {
   lifetime = new_lifetime;
 }
 
-void Creature::set_vx_vy(const int new_vx, const int new_vy) {
+void Creature::set_vx_vy(const float new_vx, const float new_vy) {
   this->vx = new_vx;
   this->vy = new_vy;
 }

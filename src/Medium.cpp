@@ -144,6 +144,7 @@ void Medium::step(void) {
     // The creature is too old or was killed by collision
     if (c->get_lifetime() <= 0) {
       std::cout << "creature too old" << std::endl;
+      delete c;
       list_creatures.erase(kill_iter++);
     } else {
       c->draw(*this);

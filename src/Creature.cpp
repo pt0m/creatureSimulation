@@ -41,8 +41,8 @@ Creature::Creature(const Creature &c) {
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 
   // Apply an offset to the coord to avoird birth collision
-  this->x -= c.vx*2*c.size/(c.vx*c.vx+c.vy*c.vy);
-  this->y -= c.vy*2*c.size/(c.vx*c.vx+c.vy*c.vy);
+  this->x -= c.vx * 2 * c.size / (c.vx * c.vx + c.vy * c.vy);
+  this->y -= c.vy * 2 * c.size / (c.vx * c.vx + c.vy * c.vy);
 }
 
 Creature::~Creature() {
@@ -93,7 +93,7 @@ float Creature::get_vy() const { return vy; };
 bool Creature::is_collision_deadly() const {
   Config *cfg = Config::get_instance();
   float death_proba = cfg->get_config_float("collision_death");
-  if (rand_range(0, 2 * M_PI, 10000)<death_proba)
+  if (rand_range(0, 1, 10000) < death_proba)
     return true;
   else
     return false;
@@ -115,10 +115,10 @@ void Creature::set_vx_vy(const int new_vx, const int new_vy) {
   this->vy = new_vy;
 }
 
-bool operator==( const Creature & c1, const ICreature & c2 ){
-	return (c1.get_identity() == c2.get_identity());
+bool operator==(const Creature &c1, const ICreature &c2) {
+  return (c1.get_identity() == c2.get_identity());
 };
 
-bool operator==( const ICreature & c1, const Creature & c2 ){
-	return (c1.get_identity() == c2.get_identity());
+bool operator==(const ICreature &c1, const Creature &c2) {
+  return (c1.get_identity() == c2.get_identity());
 };

@@ -18,9 +18,9 @@ Medium::Medium(int width, int height) :
   add_creature();
   add_creature();
   add_creature();
-  add_creature();
-  add_creature();
-  add_creature();
+//  add_creature();
+//  add_creature();
+//  add_creature();
   std::srand(time(NULL));
 }
 

@@ -89,27 +89,27 @@ ICreature *Factory::create_creature() {
 
   // add the accessories
   //Shell
-  float rnd = float(std::rand())/float(RAND_MAX);
+  float rnd = rand_range(0,1,10000);
   if(rnd <= this->proba_shell){
     creature = new Shell(creature);
   }
   //ears
-  rnd = float(std::rand())/float(RAND_MAX);
+  rnd = rand_range(0,1,10000);
   if(rnd <= this->proba_ears){
     creature = new Ears(creature);
   }
   //Eyes
-  rnd = float(std::rand())/float(RAND_MAX);
+  rnd = rand_range(0,1,10000);
   if(rnd <= this->proba_eyes){
     creature = new Eyes(creature);
   }
   //Camouflage
-  rnd = float(std::rand())/float(RAND_MAX);
+  rnd = rand_range(0,1,10000);
   if(rnd <= this->proba_camouflage){
     creature = new Camouflage(creature);
   }
   //Fin
-  rnd = float(std::rand())/float(RAND_MAX);
+  rnd = rand_range(0,1,10000);
   if(rnd <= this->proba_fin){
     creature = new Fin(creature);
   }

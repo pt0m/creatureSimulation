@@ -18,6 +18,7 @@ Creature::Creature(std::unique_ptr<IBehaviour> behaviour, T *color, int lifetime
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
   this->lifetime = lifetime;
   float orientation = rand_range(0, 2 * M_PI, 10000);
+  std::cout << "orientation : " << orientation << std::endl;
   this->size = size;
   this->speed = speed;
   this->vx = (this->speed) * cos(orientation);
@@ -41,10 +42,12 @@ Creature::Creature(const Creature &c) {
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
 }
 
-Creature::~Creature() {};
+Creature::~Creature() {
+  std::cout << "destroy creature" << std::endl;
+};
 
 void Creature::action(Medium &myMedium) {
-  this->behaviour->next_step(this,&myMedium);
+  this->behaviour->next_step(this, &myMedium);
   this->lifetime = this->lifetime - 1;
 }
 ICreature *Creature::clone() {
@@ -91,6 +94,10 @@ bool Creature::is_detected(const ICreature &) const { return false; }
 void Creature::set_coords(const int x, const int y) {
   this->x = x;
   this->y = y;
+}
+
+void Creature::set_lifetime(const int new_lifetime) {
+  lifetime = new_lifetime;
 }
 
 void Creature::set_vx_vy(const int new_vx, const int new_vy) {

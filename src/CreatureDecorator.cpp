@@ -6,9 +6,8 @@
 
 CreatureDecorator::CreatureDecorator(ICreature *c) : decoree(c){};
 
-CreatureDecorator::~CreatureDecorator(){
-  delete decoree;
-}
+CreatureDecorator::~CreatureDecorator() { this->decoree->~ICreature(); delete decoree;}
+
 // Default implementations of methods that can be decorated
 
 void CreatureDecorator::action(Medium &myMedium) {
@@ -68,4 +67,5 @@ void CreatureDecorator::set_lifetime(const int new_val) {
 void CreatureDecorator::set_vx_vy(const int vx, const int vy) {
   this->decoree->set_vx_vy(vx, vy);
 }
-CreatureDecorator::~CreatureDecorator() { this->decoree->~ICreature(); }
+
+

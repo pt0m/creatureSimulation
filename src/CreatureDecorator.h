@@ -9,7 +9,7 @@ class CreatureDecorator : public ICreature {
  public:
   CreatureDecorator(ICreature *c);
 
-  CreatureDecorator::~CreatureDecorator();
+  ~CreatureDecorator();
   // Methods whose behavior can be modified by concrete decorators
 
   void action(Medium &myMedium) override;
@@ -46,7 +46,6 @@ class CreatureDecorator : public ICreature {
 
   void set_vx_vy(const int vx, const int vy) override;
 
-  ~CreatureDecorator();  // il faut penser a appeler le destructeur de decoree
 
 private:
   ICreature *decoree;

@@ -99,7 +99,7 @@ bool Creature::is_collision_deadly() const {
     return false;
 };
 
-bool Creature::is_detected(const ICreature &) const { return false; }
+bool Creature::is_detected(const ICreature &c) const { return false; }
 
 void Creature::set_coords(const int x, const int y) {
   this->x = x;
@@ -115,3 +115,10 @@ void Creature::set_vx_vy(const int new_vx, const int new_vy) {
   this->vy = new_vy;
 }
 
+bool operator==( const Creature & c1, const ICreature & c2 ){
+	return (c1.get_identity() == c2.get_identity());
+};
+
+bool operator==( const ICreature & c1, const Creature & c2 ){
+	return (c1.get_identity() == c2.get_identity());
+};

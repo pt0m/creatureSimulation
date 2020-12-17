@@ -33,8 +33,8 @@ class Creature : public ICreature {
   ~Creature();
 
   void action(Medium &myMedium) override;
-
-  ICreature *clone() override;
+  
+  ICreature* clone() override;
 
   void draw(UImg &support) const override;
 
@@ -65,6 +65,10 @@ class Creature : public ICreature {
   void set_lifetime(const int new_lifetime) override;
 
   void set_vx_vy(const int vx, const int vy) override;
+
+  friend bool operator==( const Creature & c1, const ICreature & c2 );
+
+  friend bool operator==( const ICreature & c1, const Creature & c2 );
 };
 
 #endif  // CREATURE_H

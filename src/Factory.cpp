@@ -1,3 +1,8 @@
+#include "Camouflage.h"
+#include "Ears.h"
+#include "Eyes.h"
+#include "Shell.h"
+#include "Fin.h"
 #include "Config.h"
 #include "Creature.h"
 #include "Fearful.h"
@@ -30,28 +35,6 @@ Factory::Factory() {
   this->proba_eyes = cfg->get_config_float("proba_eyes");
   this->proba_fin = cfg->get_config_float("proba_fin");
   this->proba_shell = cfg->get_config_float("proba_shell");
-
-  //Accessories
-  //Camouflage
-  this->camouflage_min = cfg->get_config_float("camouflage_min");
-  this->camouflage_max = cfg->get_config_float("camouflage_max");
-  //Ears properties
-  this->ears_distance_min = cfg->get_config_float("ears_distance_min");
-  this->ears_distance_max = cfg->get_config_float("ears_distance_max");
-  this->ears_quality_min = cfg->get_config_float("ears_quality_min");
-  this->ears_quality_max = cfg->get_config_float("ears_quality_max");
-  //Eyes properties
-  this->eyes_angle_min = cfg->get_config_float("eyes_angle_min");
-  this->eyes_angle_max = cfg->get_config_float("eyes_angle_max");
-  this->eyes_distance_min = cfg->get_config_float("eyes_distance_min");
-  this->eyes_distance_max = cfg->get_config_float("eyes_distance_max");
-  this->eyes_quality_min = cfg->get_config_float("eyes_quality_min");
-  this->eyes_quality_max = cfg->get_config_float("eyes_quality_max");
-  //Fin
-  this->fin_speed_boost_max = cfg->get_config_float("fin_speed_boost_max");
-  //Shell
-  this->shell_protect_max = cfg->get_config_float("shell_protect_max");
-  this->shell_speed_reduc = cfg->get_config_float("shell_speed_reduc");
 
   //Initial x,y
   this->medium_width = cfg->get_config_int("width");
@@ -102,6 +85,34 @@ ICreature *Factory::create_creature() {
   float size = rand_range(this->size_min, this->size_max, 1000);
 
   ICreature *creature = new Creature(std::move(behaviour), color, lifetime, speed, size, x, y);
+
+
+  // add the accessories
+  //Shell
+  float rnd = float(std::rand())/float(RAND_MAX);
+  if(rnd <= this->proba_shell){
+    creature = new Shell(creature);
+  }
+  //ears
+  rnd = float(std::rand())/float(RAND_MAX);
+  if(rnd <= this->proba_ears){
+    creature = new Ears(creature);
+  }
+  //Eyes
+  rnd = float(std::rand())/float(RAND_MAX);
+  if(rnd <= this->proba_eyes){
+    creature = new Eyes(creature);
+  }
+  //Camouflage
+  rnd = float(std::rand())/float(RAND_MAX);
+  if(rnd <= this->proba_camouflage){
+    creature = new Camouflage(creature);
+  }
+  //Fin
+  rnd = float(std::rand())/float(RAND_MAX);
+  if(rnd <= this->proba_fin){
+    creature = new Fin(creature);
+  }
 
   return creature;
 }

@@ -28,27 +28,6 @@ class Factory {
         float proba_fin;
         float proba_shell;
 
-        //Camouflage
-        float camouflage_min;
-        float camouflage_max;
-        //Ears properties
-        float ears_distance_min;
-        float ears_distance_max;
-        float ears_quality_min;
-        float ears_quality_max;
-        //Eyes properties
-        float eyes_angle_min;
-        float eyes_angle_max;
-        float eyes_distance_min;
-        float eyes_distance_max;
-        float eyes_quality_min;
-        float eyes_quality_max;
-        //Fin
-        float fin_speed_boost_max;
-        //Shell
-        float shell_protect_max;
-        float shell_speed_reduc;
-
         //Initial x,y
         int medium_width;
         int medium_height;

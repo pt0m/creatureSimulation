@@ -8,7 +8,6 @@
 /* This function handle the borders of the medium: if a creature hit a border,
 // its normal speed components is changed into its opposit. */
 void IBehaviour::handle_border(ICreature* creature,Medium* my_medium,int new_x,int new_y){
-    std::cout << "before" << new_x << " " << new_y << std::endl;
     int limit_x = my_medium->get_width()-1;
     if (new_x<0 || new_x>limit_x){
         new_x = (new_x<0)?0:limit_x;
@@ -20,5 +19,4 @@ void IBehaviour::handle_border(ICreature* creature,Medium* my_medium,int new_x,i
         creature->set_vx_vy(creature->get_vx(),-creature->get_vy());
     }
     creature->set_coords(new_x,new_y);
-    std::cout << "after " << new_x << " " << new_y << std::endl;
 }

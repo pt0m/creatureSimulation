@@ -44,7 +44,7 @@ class CreatureDecorator : public ICreature {
 
   void set_lifetime(const int new_val) override;
 
-  void set_vx_vy(const int vx, const int vy) override;
+  void set_vx_vy(const float vx, const float vy) override;
 
 
 private:

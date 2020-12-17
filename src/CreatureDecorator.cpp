@@ -66,7 +66,7 @@ void CreatureDecorator::set_lifetime(const int new_val) {
   this->decoree->set_lifetime(new_val);
 }
 
-void CreatureDecorator::set_vx_vy(const int vx, const int vy) {
+void CreatureDecorator::set_vx_vy(const float vx, const float vy) {
   this->decoree->set_vx_vy(vx, vy);
 }
 

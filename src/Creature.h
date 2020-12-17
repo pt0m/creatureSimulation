@@ -64,11 +64,7 @@ class Creature : public ICreature {
 
   void set_lifetime(const int new_lifetime) override;
 
-  void set_vx_vy(const int vx, const int vy) override;
-
-  friend bool operator==( const Creature & c1, const ICreature & c2 );
-
-  friend bool operator==( const ICreature & c1, const Creature & c2 );
+  void set_vx_vy(const float vx, const float vy) override;
 };
 
 #endif  // CREATURE_H

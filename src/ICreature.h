@@ -44,9 +44,7 @@ class ICreature {
 
   virtual void set_lifetime(const int new_lifetime) = 0;
 
-  virtual void set_vx_vy(const int vx, const int vy) = 0;
-
-
+  virtual void set_vx_vy(const float vx, const float vy) = 0;
 };
 
 #endif //ICREATURE_H

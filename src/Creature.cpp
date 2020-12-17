@@ -53,7 +53,7 @@ ICreature *Creature::clone() {
 
 void Creature::draw(UImg &support) const {
   float orientation = 0;
-  if (vy >= 0) {
+  if (vy <= 0) {
     orientation = acos(vx / (sqrt(vx * vx + vy * vy)));
   } else {
     orientation = 2 * M_PI - acos(vx / (sqrt(vx * vx + vy * vy)));

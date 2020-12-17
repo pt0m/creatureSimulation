@@ -68,8 +68,10 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
                 float u_dir_y=neigh_vy/norm_v_neigh;
 
                 // Compute the reflection (Vt+Vn -> Vt-Vn)
-                float v_t_norm = neigh_vx*u_dir_x+neigh_vy*u_dir_y;
-                float v_n_norm = neigh_vx*u_dir_y-neigh_vy*u_dir_x;
+                float self_vx = creature->get_x();
+                float self_vy = creature->get_y();
+                float v_t_norm = self_vx*u_dir_x+self_vy*u_dir_y;
+                float v_n_norm = self_vx*u_dir_y-self_vy*u_dir_x;
                 double new_vx = u_dir_x*v_t_norm-u_dir_y*v_n_norm;
                 double new_vy = u_dir_y*v_t_norm+u_dir_x*v_n_norm;
 

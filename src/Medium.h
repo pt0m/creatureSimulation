@@ -20,6 +20,7 @@ class Medium : public UImg {
   Factory *creature_factory;
   int max_birth;
   float proba_clone;
+  int starting_pop;
 
   bool are_colliding(const ICreature &c1, const ICreature &c2) const;
 

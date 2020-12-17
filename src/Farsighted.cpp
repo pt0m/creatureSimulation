@@ -74,6 +74,12 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
                 float v_n_norm = self_vx*u_dir_y-self_vy*u_dir_x;
                 double new_vx = u_dir_x*v_t_norm-u_dir_y*v_n_norm;
                 double new_vy = u_dir_y*v_t_norm+u_dir_x*v_n_norm;
+                
+                // Prevend rounding from changing the speed norm
+                double real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+                double expect_norm = creature->get_speed();
+                new_vx *= expect_norm/real_norm;
+                new_vy *= expect_norm/real_norm;
 
                 creature->set_vx_vy(new_vx,new_vy);
 

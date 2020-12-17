@@ -21,8 +21,8 @@ Eyes::Eyes(ICreature *c): CreatureDecorator(c) {
 
 ICreature *Eyes::clone(){
     ICreature* c = CreatureDecorator::clone();
-    ICreature* CreatureDecorated = new Eyes(c);
-    return CreatureDecorated;
+    ICreature* creature_decorated = new Eyes(c);
+    return creature_decorated;
 }
 
 bool Eyes::is_detected(const ICreature &c) const {
@@ -60,7 +60,7 @@ void Eyes::draw(UImg &support) const{
     CreatureDecorator::draw(support);
 
     float size =  this->get_size();
-    int r = int(size/20);
+    int r = int(size/6);
 
     int x0 = this->get_x();
     int y0 = this->get_y();

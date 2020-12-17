@@ -20,8 +20,8 @@ Shell::Shell(ICreature *c) : CreatureDecorator(c){
 
 ICreature *Shell::clone(){
     ICreature* c = CreatureDecorator::clone();
-    ICreature* CreatureDecorated = new Shell(c);
-    return CreatureDecorated;
+    ICreature* creature_decorated = new Shell(c);
+    return creature_decorated;
 }
 
 bool Shell::is_collision_deadly() const{
@@ -47,8 +47,8 @@ void Shell::draw(UImg &support) const{
   CreatureDecorator::draw(support);
 
   float size =  this->get_size();
-  int x0 = int(size/10);
-  int y0 = int(size/10);
+  int x0 = int(size/3);
+  int y0 = int(size/3);
 
   T* black = new T[ 3 ];
   black[ 0 ] = 0;

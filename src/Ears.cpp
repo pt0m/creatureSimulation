@@ -1,4 +1,4 @@
-    #include "Ears.h"
+#include "Ears.h"
 #include "Config.h"
 
 #include <cstdlib> // for rand method and RAND_MAX
@@ -44,8 +44,8 @@ bool Ears::is_detected(const ICreature &c) const {
 
 ICreature *Ears::clone(){
     ICreature* c = CreatureDecorator::clone();
-    ICreature* CreatureDecorated = new Ears(c);
-    return CreatureDecorated;
+    ICreature* creature_decorated = new Ears(c);
+    return creature_decorated;
 }
 
 void Ears::draw(UImg &support) const{

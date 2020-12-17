@@ -11,8 +11,8 @@ Fin::Fin(ICreature *c): CreatureDecorator(c) {
 
 ICreature *Fin::clone(){
     ICreature* c = CreatureDecorator::clone();
-    ICreature* CreatureDecorated = new Fin(c);
-    return CreatureDecorated;
+    ICreature* creature_decorated = new Fin(c);
+    return creature_decorated;
 }
 
 float Fin::get_speed() const {
@@ -25,8 +25,8 @@ void Fin::draw(UImg &support) const {
     CreatureDecorator::draw(support);
 
     float size =  this->get_size();
-    int x0 = int(size/10);
-    int y0 = int(size/10);
+    int x0 = int(size/3);
+    int y0 = int(size/3);
 
     int x1 = this->get_x() - x0;
     int y1 = this->get_y() - y0;

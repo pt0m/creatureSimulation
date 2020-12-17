@@ -34,7 +34,7 @@ class Creature : public ICreature {
 
   void action(Medium &myMedium) override;
 
-  ICreature* clone() override;
+  ICreature *clone() override;
 
   void draw(UImg &support) const override;
 
@@ -61,6 +61,8 @@ class Creature : public ICreature {
   bool is_detected(const ICreature &c) const override;
 
   void set_coords(const int x, const int y) override;
+
+  void set_lifetime(const int new_lifetime) override;
 
   void set_vx_vy(const int vx, const int vy) override;
 };

@@ -39,6 +39,11 @@ Creature::Creature(const Creature &c) {
   this->identity = Creature::NEXT_IDENTITY;
   this->behaviour = c.behaviour->clone_behaviour();
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
+
+  // Apply an offset to the coord to avoird birth collision
+  float rel_pos_norm = 2*size/(c.vx*c.vx+c.vy*c.vy);
+  this->x -= c.vx*2*size/(c.vx*c.vx+c.vy*c.vy);
+  this->y -= c.vy*2*size/(c.vx*c.vx+c.vy*c.vy);
 }
 
 Creature::~Creature() {

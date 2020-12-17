@@ -71,7 +71,7 @@ bool Medium::collide(ICreature &c1, ICreature &c2) {
     c2.set_vx_vy(-vx, -vy);
   }
   if (is_c1_dead || is_c2_dead) {
-    std::cout << "died by collision" << std::endl;
+    std::cout << " died by collision" << std::endl;
   }
   return is_c1_dead;
 }
@@ -99,9 +99,9 @@ Medium::list_neighbours(const ICreature &c) const {
   std::unique_ptr<std::list<ICreature *>> neighbours = std::make_unique < std::list < ICreature * >> ();
   for (ICreature *other : list_creatures) {
     if (c.get_identity() != other->get_identity()) {
-//      if (c.is_detected(*other)) {
-      neighbours->push_back(other);
-//      }
+      if (c.is_detected(*other)) {
+        neighbours->push_back(other);
+      }
     }
   }
   return neighbours;
@@ -144,9 +144,11 @@ void Medium::step(void) {
     c = *kill_iter;
     // The creature is too old or was killed by collision
     if (c->get_lifetime() <= 0) {
-      std::cout << "died : " << c->get_identity() << std::endl;
+      int died_id = c->get_identity();
       delete c;
+      std::cout << "died : " << died_id << std::endl;
       list_creatures.erase(kill_iter++);
+      std::cout << "died : " << died_id << std::endl;
     } else {
       c->draw(*this);
       ++kill_iter;

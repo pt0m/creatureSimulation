@@ -4,9 +4,11 @@
 
 #include "Medium.h"
 
-CreatureDecorator::CreatureDecorator(ICreature *c) : decoree(c){};
+CreatureDecorator::CreatureDecorator(ICreature *c) : decoree(c) {};
 
-CreatureDecorator::~CreatureDecorator() { this->decoree->~ICreature(); delete decoree;}
+CreatureDecorator::~CreatureDecorator() {
+  delete decoree;
+}
 
 // Default implementations of methods that can be decorated
 
@@ -14,7 +16,7 @@ void CreatureDecorator::action(Medium &myMedium) {
   this->decoree->action(myMedium);
 }
 
-ICreature *CreatureDecorator::clone(){
+ICreature *CreatureDecorator::clone() {
   return this->decoree->clone();
 }
 
@@ -27,7 +29,7 @@ float CreatureDecorator::get_camouflage() const {
 }
 
 int CreatureDecorator::get_identity() const {
-    return this->decoree->get_identity();
+  return this->decoree->get_identity();
 }
 
 int CreatureDecorator::get_lifetime() const {

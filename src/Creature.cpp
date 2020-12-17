@@ -18,7 +18,6 @@ Creature::Creature(std::unique_ptr<IBehaviour> behaviour, T *color, int lifetime
   Creature::NEXT_IDENTITY = Creature::NEXT_IDENTITY + 1;
   this->lifetime = lifetime;
   float orientation = rand_range(0, 2 * M_PI, 10000);
-  std::cout << "orientation : " << orientation << std::endl;
   this->size = size;
   this->speed = speed;
   this->vx = (this->speed) * cos(orientation);
@@ -87,7 +86,14 @@ float Creature::get_vx() const { return vx; };
 
 float Creature::get_vy() const { return vy; };
 
-bool Creature::is_collision_deadly() const { return true; };
+bool Creature::is_collision_deadly() const {
+  Config *cfg = Config::get_instance();
+  float death_proba = cfg->get_config_float("collision_death");
+  if (rand_range(0, 2 * M_PI, 10000)<death_proba)
+    return true;
+  else
+    return false;
+};
 
 bool Creature::is_detected(const ICreature &) const { return false; }
 

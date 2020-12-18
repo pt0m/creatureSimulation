@@ -7,7 +7,7 @@
 
 class Shell : public CreatureDecorator{
   private:
-  float chance_to_survive_with_the_shell;
+  float chance_to_survive;
   float speed_mult_coef;
   public:
   Shell(ICreature* c); 

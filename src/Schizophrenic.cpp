@@ -1,5 +1,6 @@
 #include <cstdlib>      // std::rand()
 #include <memory>       // std::unique_ptr
+#include <iostream>
 
 #include "Config.h"
 #include "ICreature.h"
@@ -9,6 +10,7 @@
 #include "Gregarious.h"
 #include "Kamikaze.h"
 #include "Schizophrenic.h"
+#include "UImg.h"
 
 
 Schizophrenic::Schizophrenic(){
@@ -34,6 +36,8 @@ void Schizophrenic::next_step(ICreature* creature, Medium* my_medium){
     if (this->phase_remain_duration==0){
         this->phase_remain_duration = this->phase_total_duration;
         this->current_behaviour = std::rand() % 4;
+        T* new_color = list_color[this->current_behaviour];
+        creature->set_color(new_color);
     }
 
     this->phase_remain_duration--;

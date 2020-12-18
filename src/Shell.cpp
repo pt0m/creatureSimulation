@@ -1,20 +1,21 @@
-#include "Shell.h"
-#include <cstdlib>
 #include "Config.h"
+#include "Shell.h"
+#include "utils.h"
+
 Shell::Shell(ICreature *c) : CreatureDecorator(c){
   Config* config_singleton = Config::get_instance();
   float shell_max_p_to_survive = 
-          config_singleton->get_config_float("shell_max_proba_to_survive");
+      config_singleton->get_config_float("shell_max_proba_survive");
   float shell_min_p_to_survive = 
-          config_singleton->get_config_float("shell_min_proba_to_survive");
-  float rnd = float(std::rand()) / float(RAND_MAX);
-  this->chance_to_survive_with_the_shell = rnd * (shell_max_p_to_survive - shell_min_p_to_survive) + shell_min_p_to_survive;
+      config_singleton->get_config_float("shell_min_proba_survive");
+  this->chance_to_survive = 
+      rand_range(shell_min_p_to_survive,shell_max_p_to_survive, 10000);
   float shell_max_speed_mult_coef = 
-          config_singleton->get_config_float("shell_max_speed_mult_coef");
+      config_singleton->get_config_float("shell_max_speed_mult_coef");
   float shell_min_speed_mult_coef = 
-          config_singleton->get_config_float("shell_min_speed_mult_coef");
-  rnd = float(std::rand()) / float(RAND_MAX);
-  this->speed_mult_coef = rnd *(shell_max_speed_mult_coef - shell_min_speed_mult_coef) + shell_min_speed_mult_coef;
+      config_singleton->get_config_float("shell_min_speed_mult_coef");
+  this->speed_mult_coef =
+      rand_range(shell_min_speed_mult_coef,shell_max_speed_mult_coef, 10000);
 }
 
 
@@ -25,14 +26,14 @@ ICreature *Shell::clone(){
 }
 
 bool Shell::is_collision_deadly() const{
-  if(!CreatureDecorator::is_collision_deadly()){
-    return false; // if the collision isn't deadly, then the shell do nothing
-  }
-  float random_number = float(std::rand()) / float(RAND_MAX);
-  // we will have to set the next variable from the config file
-  if(random_number < 1 - this->chance_to_survive_with_the_shell){
+  // if the collision isn't deadly, then the shell do nothing
+  if(!CreatureDecorator::is_collision_deadly())
     return false;
-  }
+
+  // we will have to set the next variable from the config file
+  if(rand_range(0, 1, 10000) < this->chance_to_survive)
+    return false;
+
   return true;
 }
 
@@ -46,22 +47,29 @@ float Shell::get_speed() const {
 void Shell::draw(UImg &support) const{
   CreatureDecorator::draw(support);
 
-  float size =  this->get_size();
-  int x0 = int(size/3);
-  int y0 = int(size/3);
+  int x = this->get_x();
+  int y = this->get_y();
+  float vx = this->get_vx();
+  float vy = this->get_vy();
+  float size = this->get_size();
+  float norm_v = sqrt(vx*vx+vy*vy);
+  float orientation;
 
-  T* black = new T[ 3 ];
-  black[ 0 ] = 0;
-  black[ 1 ] = 0;
-  black[ 2 ] = 0;
+  if (vy <= 0)
+    orientation = acos(vx / norm_v);
+  else
+    orientation = 2 * M_PI - acos(vx / norm_v);
 
-  int x1 = this->get_x() + x0;
-  int y1 = this->get_y() + y0;
+  float dir_x = vx/norm_v;
+  float dir_y = vy/norm_v;
 
-  int x2 = this->get_x() - x0;
-  int y2 = this->get_y() - y0;
+  double xt = x - dir_x * size/2;
+  double yt = y - dir_y * size/2;
 
-  support.draw_rectangle(x1,y1,x2,y2,black,1,2);
+  T grey[3] = {100,100,100};
+
+    support.draw_ellipse(xt,yt,size/2,size/3,
+        -orientation/M_PI*180.,grey);
 
 }
 

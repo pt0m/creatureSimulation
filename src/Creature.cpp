@@ -1,7 +1,6 @@
 #include "Creature.h"
 
 #include <cmath>  // for cos, sin, acos and sqrt
-#include <cstdlib>
 #include <iostream>
 #include <vector>
 
@@ -33,8 +32,11 @@ Creature::Creature(const Creature &c) {
   // Clones go in the opposite directions
   this->vx = -c.vx;
   this->vy = -c.vy;
-  this->x = c.x;
-  this->y = c.y;
+  float off_x = -c.vx;
+  float off_y = -c.vy;
+  float norm_off = c.size*2/sqrt(off_x*off_x+off_y*off_y);
+  this->x = c.x+off_x*norm_off;
+  this->y = c.y+off_y*norm_off;
   this->color = c.color;
   this->identity = Creature::NEXT_IDENTITY;
   this->behaviour = c.behaviour->clone_behaviour();
@@ -45,12 +47,10 @@ Creature::Creature(const Creature &c) {
   this->y -= c.vy * 2 * c.size / (c.vx * c.vx + c.vy * c.vy);
 }
 
-Creature::~Creature() {
-  std::cout << "destroy creature" << std::endl;
-};
+Creature::~Creature() {};
 
-void Creature::action(Medium &myMedium) {
-  this->behaviour->next_step(this, &myMedium);
+void Creature::action(Medium &myMedium, ICreature* creature) {
+  this->behaviour->next_step(creature, &myMedium);
   this->lifetime = this->lifetime - 1;
 }
 ICreature *Creature::clone() {
@@ -64,10 +64,10 @@ void Creature::draw(UImg &support) const {
   } else {
     orientation = 2 * M_PI - acos(vx / (sqrt(vx * vx + vy * vy)));
   }
-  double xt = x + cos(orientation) * this->size / 2.1;
-  double yt = y - sin(orientation) * this->size / 2.1;
+  double xt = x + cos(orientation) * this->size / 2;
+  double yt = y - sin(orientation) * this->size / 2;
 
-  support.draw_ellipse(x, y, this->size, this->size / 5.,
+  support.draw_ellipse(x, y, this->size, this->size/5,
                        -orientation / M_PI * 180., color);
   support.draw_circle(xt, yt, this->size / 2., color);
 }
@@ -115,10 +115,7 @@ void Creature::set_vx_vy(const float new_vx, const float new_vy) {
   this->vy = new_vy;
 }
 
-bool operator==(const Creature &c1, const ICreature &c2) {
-  return (c1.get_identity() == c2.get_identity());
-};
 
-bool operator==(const ICreature &c1, const Creature &c2) {
-  return (c1.get_identity() == c2.get_identity());
-};
+void Creature::set_color(T* new_color){
+  this->color = new_color;
+}

@@ -1,17 +1,16 @@
 #include "Ears.h"
 #include "Config.h"
-
-#include <cstdlib> // for rand method and RAND_MAX
+#include "utils.h"
 
 Ears::Ears(ICreature *c): CreatureDecorator(c) {
     // we will have to set the next variable from the config file
     Config* config_singleton = Config::get_instance();
-    float max = config_singleton->get_config_float("max_range_detection_ears");
-    float min = config_singleton->get_config_float("min_range_detection_ears");
-    this->max_range = min + (max-min)* (float(std::rand())/float(RAND_MAX));
-    float max_d = config_singleton->get_config_float("ears_quality_max");
-    float min_d = config_singleton->get_config_float("ears_quality_min");
-    this->detection_capacity_ears = min_d + (max_d-min_d)* (float(std::rand())/float(RAND_MAX));
+    float max_r = config_singleton->get_config_float("max_range_ears");
+    float min_r = config_singleton->get_config_float("min_range_ears");
+    this->max_range = rand_range(min_r,max_r, 10000);
+    float max_q = config_singleton->get_config_float("ears_quality_max");
+    float min_q = config_singleton->get_config_float("ears_quality_min");
+    this->detection_capacity_ears = rand_range(min_q,max_q, 10000);
 
 }
 
@@ -51,27 +50,36 @@ ICreature *Ears::clone(){
 void Ears::draw(UImg &support) const{
     CreatureDecorator::draw(support);
 
-    float size =  this->get_size();
-    int x0 = int(size/10);
-    int y0 = int(size/10);
+    float vx = this->get_vx();
+    float vy = this->get_vy();
+    float size = this->get_size();
+    float norm_v = sqrt(vx*vx+vy*vy);
 
-    int x1 = this->get_x() + x0;
-    int y1 = this->get_y() + y0;
+    float dir_x = vx/norm_v;
+    float dir_y = vy/norm_v;
 
-    int x2 = this->get_x() - x0;
-    int y2 = this->get_y() + y0;
+    double xt = this->get_x() + dir_x*size/2;
+    double yt = this->get_y() + dir_y*size/2;
 
-    int x3 = this->get_x();
-    int y3 = this->get_y() - y0;
+    float dir_ear_x1 = (dir_x-dir_y)*sqrt(2);
+    float dir_ear_y1 = (dir_y+dir_x)*sqrt(2);
+    float dir_ear_x2 = (dir_x+dir_y)*sqrt(2);
+    float dir_ear_y2 = (dir_y-dir_x)*sqrt(2);
 
-    T* black = new T[ 3 ];
-    black[ 0 ] = 0;
-    black[ 1 ] = 0;
-    black[ 2 ] = 0;
+    int x1 = xt+dir_ear_x1*size/4;
+    int y1 = yt+dir_ear_y1*size/4;
+    int xx1 = xt+dir_ear_x1*size/2;
+    int yy1 = yt+dir_ear_y1*size/2;
 
-    support.draw_triangle(x1,y1,x2,y2,x3,y3,black,1,2);
+    int x2 = xt+dir_ear_x2*size/4;
+    int y2 = yt+dir_ear_y2*size/4;
+    int xx2 = xt+dir_ear_x2*size/2;
+    int yy2 = yt+dir_ear_y2*size/2;
 
+    T black[3] = {0,0,0};
 
-
-
+    support.draw_line(x1,y1,xx1,yy1,black,1);
+    support.draw_line(x2,y2,xx2,yy2,black,1);
+    support.draw_circle(xx1, yy1, size/16, black);
+    support.draw_circle(xx2, yy2, size/16, black);
 }

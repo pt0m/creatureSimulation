@@ -12,8 +12,8 @@ CreatureDecorator::~CreatureDecorator() {
 
 // Default implementations of methods that can be decorated
 
-void CreatureDecorator::action(Medium &myMedium) {
-  this->decoree->action(myMedium);
+void CreatureDecorator::action(Medium &myMedium, ICreature* creature) {
+  this->decoree->action(myMedium, creature);
 }
 
 ICreature *CreatureDecorator::clone() {
@@ -38,9 +38,7 @@ int CreatureDecorator::get_lifetime() const {
 
 float CreatureDecorator::get_size() const { return this->decoree->get_size(); }
 
-float CreatureDecorator::get_speed() const {
-  return this->decoree->get_speed();
-}
+float CreatureDecorator::get_speed() const {return this->decoree->get_speed();}
 
 int CreatureDecorator::get_x() const { return this->decoree->get_x(); }
 
@@ -71,3 +69,6 @@ void CreatureDecorator::set_vx_vy(const float vx, const float vy) {
 }
 
 
+void CreatureDecorator::set_color(T* new_color) {
+  this->decoree->set_color(new_color);
+}

@@ -32,7 +32,7 @@ class Creature : public ICreature {
 
   ~Creature();
 
-  void action(Medium &myMedium) override;
+  void action(Medium &myMedium, ICreature* creature) override;
   
   ICreature* clone() override;
 
@@ -65,6 +65,8 @@ class Creature : public ICreature {
   void set_lifetime(const int new_lifetime) override;
 
   void set_vx_vy(const float vx, const float vy) override;
+
+  void set_color(T* new_color) override;
 };
 
 #endif  // CREATURE_H

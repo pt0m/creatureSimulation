@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "Creature.h"
 
+#include <cmath>        // sqrt
 #include <ctime>
 #include <iostream>
 
@@ -15,7 +16,6 @@ Medium::Medium(int width, int height) :
   proba_clone = config_singleton->get_config_float("proba_clone");
   starting_pop = config_singleton->get_config_int("starting_pop");
   creature_factory = new Factory();
-  std::cout << "const Medium" << std::endl;
   std::srand(time(NULL));
   for (auto i = 0; i < starting_pop; i++) {
     add_creature();
@@ -23,7 +23,6 @@ Medium::Medium(int width, int height) :
 }
 
 Medium::~Medium(void) {
-  std::cout << "dest Medium" << std::endl;
   for (auto c : list_creatures) {
     delete c;
   }
@@ -51,27 +50,38 @@ bool Medium::are_colliding(const ICreature &c1, const ICreature &c2) const {
 }
 
 bool Medium::collide(ICreature &c1, ICreature &c2) {
-  int vx, vy;
+  float vx, vy, v_t_norm, v_n_norm, new_vx, new_vy;
   bool is_c1_dead = c1.is_collision_deadly();
+
+  float tan_x = c2.get_y()-c1.get_y();
+  float tan_y = c1.get_x()-c2.get_x();
+
+  float tan_norm = std::sqrt(tan_x*tan_x+tan_y*tan_y);
+  tan_x/=tan_norm;
+  tan_y/=tan_norm;
+
   if (is_c1_dead) {
-    std::cout << c1.get_identity() << " ";
     c1.set_lifetime(0);
   } else {
     vx = c1.get_vx();
     vy = c1.get_vy();
-    c1.set_vx_vy(-vx, -vy);
+    v_t_norm = vx*tan_x+vy*tan_y;
+    v_n_norm = vx*tan_y-vy*tan_x;
+    new_vx = tan_x*v_t_norm-tan_y*v_n_norm;
+    new_vy = tan_y*v_t_norm+tan_x*v_n_norm;
+    c1.set_vx_vy(new_vx,new_vy);
   }
   bool is_c2_dead = c2.is_collision_deadly();
   if (is_c2_dead) {
     c2.set_lifetime(0);
-    std::cout << c2.get_identity();
   } else {
     vx = c2.get_vx();
     vy = c2.get_vy();
-    c2.set_vx_vy(-vx, -vy);
-  }
-  if (is_c1_dead || is_c2_dead) {
-    std::cout << " died by collision" << std::endl;
+    v_t_norm = vx*tan_x+vy*tan_y;
+    v_n_norm = vx*tan_y-vy*tan_x;
+    new_vx = tan_x*v_t_norm-tan_y*v_n_norm;
+    new_vy = tan_y*v_t_norm+tan_x*v_n_norm;
+    c2.set_vx_vy(new_vx,new_vy);
   }
   return is_c1_dead;
 }
@@ -112,7 +122,6 @@ void Medium::step(void) {
   cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
   bool is_dead;
   int c_id, other_id;
-
   std::list<ICreature *>::iterator c_iter;
   std::list<ICreature *>::iterator other_iter;
   ICreature *c, *other;
@@ -120,7 +129,7 @@ void Medium::step(void) {
   for (; c_iter != list_creatures.end(); ++c_iter) {
     // Move
     c = *c_iter;
-    c->action(*this);
+    c->action(*this, c);
     other_iter = c_iter;
     for (; other_iter != list_creatures.end(); ++other_iter) {
       // Check for collisions
@@ -129,7 +138,6 @@ void Medium::step(void) {
       other_id = other->get_identity();
       if (other_id != c_id) {
         if (are_colliding(*c, *other)) {
-          std::cout << c_id << " collision " << other_id << std::endl;
           is_dead = collide(*c, *other);
           if (is_dead) {
             break;
@@ -144,16 +152,13 @@ void Medium::step(void) {
     c = *kill_iter;
     // The creature is too old or was killed by collision
     if (c->get_lifetime() <= 0) {
-      int died_id = c->get_identity();
       delete c;
-      std::cout << "died : " << died_id << std::endl;
       list_creatures.erase(kill_iter++);
-      std::cout << "died : " << died_id << std::endl;
-    } else {
+    }
+    else {
       c->draw(*this);
       ++kill_iter;
       if (rand_range(0, 1, 1000) < proba_clone) {
-        std::cout << "cloned : " << c->get_identity() << std::endl;
         add_creature_clone(*c);
       }
     }

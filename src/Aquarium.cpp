@@ -12,7 +12,6 @@ Aquarium::Aquarium(std::string filename) : CImgDisplay() {
   int height = config_singleton->get_config_int("height");
   this->delay = config_singleton->get_config_int("delay");
 
-  std::cout << "const Aquarium" << std::endl;
   this->aqua = new Medium(width, height);
 
   // from CImg library
@@ -24,15 +23,11 @@ Aquarium::Aquarium(std::string filename) : CImgDisplay() {
 
 Aquarium::~Aquarium(void) {
   delete aqua;
-  std::cout << "dest Aquarium" << std::endl;
 }
 
 void Aquarium::run(void) {
-  std::cout << "running Aquarium" << std::endl;
   while (!is_closed()) {
     if (is_key()) {
-      std::cout << "Vous avez presse la touche " << static_cast<unsigned char>( key());
-      std::cout << " (" << key() << ")" << std::endl;
       this->user_interaction(static_cast<unsigned char>(key()));
       if (is_keyESC()) close();
     }
@@ -52,13 +47,11 @@ void Aquarium::user_interaction(unsigned char key) {
   // TODO : reimplement function
   switch (key) {
     case 'l':
-      std::cout << "l case" << std::endl;
 //      std::list < ICreature > *aqua->get_list_creatures();
 //      std::list<ICreature>::iterator it = aqua->end() //we remove and destroy the last element
 //      std::list.erase(it);
       break;
     case 'f':
-      std::cout << "f case" << std::endl;
 //      std::list < ICreature > *aqua->get_list_creatures();
 //      std::list<ICreature>::iterator it = aqua->begin() //we remove and destroy the first element
 //      std::list.erase(it);

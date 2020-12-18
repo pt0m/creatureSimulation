@@ -1,6 +1,7 @@
 #include <cmath>        // sqrt
 #include <list>
 #include <memory>       // std::unique_ptr
+#include <iostream>
 
 #include "Kamikaze.h"
 #include "ICreature.h"
@@ -13,7 +14,6 @@ std::unique_ptr<IBehaviour> Kamikaze::clone_behaviour(){
 
 
 void Kamikaze::next_step(ICreature* creature, Medium* my_medium){
-
     std::unique_ptr<std::list<ICreature*>> neighbours = my_medium->list_neighbours(*creature);
     unsigned int nb_neighbours = neighbours->size();
 
@@ -49,6 +49,7 @@ void Kamikaze::next_step(ICreature* creature, Medium* my_medium){
         double dir_x = target_x-new_x;
         double dir_y = target_y-new_y;
         double dir_norm = sqrt(dir_x*dir_x+dir_y*dir_y);
+
         if (dir_norm>0.01){
             double speed_norm = creature->get_speed();
 
@@ -60,14 +61,28 @@ void Kamikaze::next_step(ICreature* creature, Medium* my_medium){
             new_y += new_vy;
         }
         else{
-            new_x += creature->get_vx();
-            new_y += creature->get_vy();
+            double new_vx = creature->get_vx();
+            double new_vy = creature->get_vy();
+            double real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+            double expect_norm = creature->get_speed();
+            new_vx *= expect_norm/real_norm;
+            new_vy *= expect_norm/real_norm;
+
+            new_x += new_vx;
+            new_y += new_vy;
         }
     }
     // Continue toward the same direction if there is no neighours
     else{
-        new_x += creature->get_vx();
-        new_y += creature->get_vy();
+        double new_vx = creature->get_vx();
+        double new_vy = creature->get_vy();
+        double real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+        double expect_norm = creature->get_speed();
+        new_vx *= expect_norm/real_norm;
+        new_vy *= expect_norm/real_norm;
+
+        new_x += new_vx;
+        new_y += new_vy;
     }
 
     this->handle_border(creature, my_medium, new_x, new_y);

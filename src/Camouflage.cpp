@@ -1,19 +1,18 @@
-#include "Camouflage.h"
-#include <cstdlib> // for rand  and RAND_MAX
 #include <algorithm> // for min(float , float) function 
+
+#include "Camouflage.h"
 #include "Config.h"
+#include "utils.h"
 
 
 Camouflage::Camouflage(ICreature *c) : CreatureDecorator(c){
   Config* config_singleton = Config::get_instance();
   this->max_camouflage = config_singleton->get_config_float("max_camouflage");
-
-  float max_camouflage_efficency = 
+  float max_cam_effi = 
           config_singleton->get_config_float("max_camouflage_efficency");
-  float min_camouflage_efficency = 
+  float min_cam_effi = 
           config_singleton->get_config_float("min_camouflage_efficency");
-  float rnd = float(std::rand()) / float(RAND_MAX);
-  this->camouflage_efficiency = rnd * (max_camouflage_efficency - min_camouflage_efficency) + min_camouflage_efficency;
+  this->camouflage_efficiency = rand_range(min_cam_effi,max_cam_effi, 10000);
 }
 
 ICreature *Camouflage::clone(){
@@ -33,20 +32,7 @@ float Camouflage::get_camouflage() const{
 void Camouflage::draw(UImg &support) const{
   CreatureDecorator::draw(support);
 
-    float size =  this->get_size();
-    int x0 = int(size/5);
+    T black[3] = {0,0,0};
 
-    T* black = new T[ 3 ];
-    black[ 0 ] = 0;
-    black[ 1 ] = 0;
-    black[ 2 ] = 0;
-
-    int x1 = this->get_x() + x0;
-    int y1 = this->get_y();
-
-    int x2 = this->get_x() - x0;
-    int y2 = this->get_y();
-
-    support.draw_rectangle(x1,y1,x2,y2,black,1,2);
-  
+    support.draw_circle(this->get_x(),this->get_y(), this->get_size()*1.3, black,1,~0);
 }

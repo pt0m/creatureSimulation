@@ -12,7 +12,7 @@ class CreatureDecorator : public ICreature {
   ~CreatureDecorator();
   // Methods whose behavior can be modified by concrete decorators
 
-  void action(Medium &myMedium) override;
+  void action(Medium &myMedium, ICreature* creature) override;
   
   ICreature *clone();
 
@@ -45,6 +45,8 @@ class CreatureDecorator : public ICreature {
   void set_lifetime(const int new_val) override;
 
   void set_vx_vy(const float vx, const float vy) override;
+
+  void set_color(T* new_color) override;
 
 
 private:

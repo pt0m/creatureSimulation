@@ -32,6 +32,7 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
     float sum_sizes;
     float sq_sizes;
     float sq_dist;
+    float new_vx, new_vy, real_norm, expect_norm;
     std::list<ICreature*>::iterator iter;
     ICreature* it;
 
@@ -72,12 +73,12 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
                 float self_vy = creature->get_y();
                 float v_t_norm = self_vx*u_dir_x+self_vy*u_dir_y;
                 float v_n_norm = self_vx*u_dir_y-self_vy*u_dir_x;
-                double new_vx = u_dir_x*v_t_norm-u_dir_y*v_n_norm;
-                double new_vy = u_dir_y*v_t_norm+u_dir_x*v_n_norm;
+                new_vx = u_dir_x*v_t_norm-u_dir_y*v_n_norm;
+                new_vy = u_dir_y*v_t_norm+u_dir_x*v_n_norm;
                 
                 // Prevend rounding from changing the speed norm
-                double real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
-                double expect_norm = creature->get_speed();
+                real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+                expect_norm = creature->get_speed();
                 new_vx *= expect_norm/real_norm;
                 new_vy *= expect_norm/real_norm;
 
@@ -87,11 +88,19 @@ void Farsighted::next_step(ICreature* creature, Medium* my_medium){
             }
         }
     }
+
+    new_vx = creature->get_vx();
+    new_vy = creature->get_vy();
+    real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+    expect_norm = creature->get_speed();
+    new_vx *= expect_norm/real_norm;
+    new_vy *= expect_norm/real_norm;
+
     //label goto
     compute_new_xy:
 
-    new_x += creature->get_vx();
-    new_y += creature->get_vy();
+    new_x += new_vx;
+    new_y += new_vy;
 
     this->handle_border(creature, my_medium, new_x, new_y);
 }

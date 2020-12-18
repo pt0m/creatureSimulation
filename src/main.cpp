@@ -1,9 +1,7 @@
 #include "Aquarium.h"
 
-#include <iostream>
-
 int main(){
-   Aquarium aquarium("./src/configuration.conf");
+   Aquarium aquarium("./test/schizophrenics.conf");
    aquarium.run();
 
    return 0;

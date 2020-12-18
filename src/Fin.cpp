@@ -1,12 +1,14 @@
 #include "Fin.h"
-#include <cstdlib> // for rand  and RAND_MAX
 #include "Config.h"
+#include "utils.h"
+
+#include <cmath>  // for cos, sin, acos and sqrt
 
 Fin::Fin(ICreature *c): CreatureDecorator(c) {
 	Config* config_singleton = Config::get_instance();
-	float max_mult_coef = config_singleton->get_config_float("fin_max_mult_coef");
-	float rnd = float(std::rand()) / float(RAND_MAX);
-    this->fin_mult_coef = 1.0 + (max_mult_coef-1.0)*rnd;
+    float max_mult_coef = config_singleton->get_config_float("fin_max_mult_coef");
+    float min_mult_coef = config_singleton->get_config_float("fin_min_mult_coef");
+    this->fin_mult_coef = rand_range(min_mult_coef, max_mult_coef, 10000);
 }
 
 ICreature *Fin::clone(){
@@ -24,24 +26,32 @@ float Fin::get_speed() const {
 void Fin::draw(UImg &support) const {
     CreatureDecorator::draw(support);
 
-    float size =  this->get_size();
-    int x0 = int(size/3);
-    int y0 = int(size/3);
+    int x = this->get_x();
+    int y = this->get_y();
+    float vx = this->get_vx();
+    float vy = this->get_vy();
+    float size = this->get_size();
+    float norm_v = sqrt(vx*vx+vy*vy);
+    float orientation;
 
-    int x1 = this->get_x() - x0;
-    int y1 = this->get_y() - y0;
+    if (vy <= 0)
+        orientation = acos(vx / norm_v);
+    else
+        orientation = 2 * M_PI - acos(vx / norm_v);
 
-    int x2 = this->get_x() + x0;
-    int y2 = this->get_y() - y0;
+    float dir_x = vx/norm_v;
+    float dir_y = vy/norm_v;
 
-    int x3 = this->get_x();
-    int y3 = this->get_y() + y0;
+    int x1 = x+dir_y*size/3;
+    int y1 = y-dir_x*size/3;
 
-    T* black = new T[ 3 ];
-    black[ 0 ] = 0;
-    black[ 1 ] = 0;
-    black[ 2 ] = 0;
+    int x2 = x-dir_y*size/3;
+    int y2 = y+dir_x*size/3;
 
-    support.draw_triangle(x1,y1,x2,y2,x3,y3,black,1,2);
+    T black[3] = {0,0,0};
 
+    support.draw_ellipse(x1,y1,size/6,size/3,
+        -orientation/M_PI*180.,black);
+    support.draw_ellipse(x2,y2,size/6,size/3,
+        -orientation/M_PI*180.,black);
 }

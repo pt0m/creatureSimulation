@@ -30,7 +30,7 @@ void Fearful::next_step(ICreature* creature, Medium* my_medium){
     int new_x = creature->get_x();
     int new_y = creature->get_y();
 
-    if (nb_neighbours>this->too_crowded_limit){
+    if (nb_neighbours>=this->too_crowded_limit){
         this->scared_remain_duration = this->scared_total_duration;
     }
 
@@ -67,8 +67,15 @@ void Fearful::next_step(ICreature* creature, Medium* my_medium){
             new_y += new_vy;
         }
         else{
-            new_x += creature->get_vx();
-            new_y += creature->get_vy();
+            double new_vx = creature->get_vx();
+            double new_vy = creature->get_vy();
+            double real_norm = sqrt(new_vx*new_vx+new_vy*new_vy);
+            double expect_norm = creature->get_speed();
+            new_vx *= scared_speed_boost*expect_norm/real_norm;
+            new_vy *= scared_speed_boost*expect_norm/real_norm;
+
+            new_x += new_vx;
+            new_y += new_vy;
         }
     }
     // Not scared creature: continue toward the same direction with basic speed.

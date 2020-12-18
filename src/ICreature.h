@@ -12,7 +12,7 @@ class ICreature {
  public:
   virtual ~ICreature() {};
 
-  virtual void action(Medium &myMedium) = 0;
+  virtual void action(Medium &myMedium, ICreature* creature) = 0;
 
   virtual ICreature *clone() = 0;
 
@@ -45,6 +45,8 @@ class ICreature {
   virtual void set_lifetime(const int new_lifetime) = 0;
 
   virtual void set_vx_vy(const float vx, const float vy) = 0;
+
+  virtual void set_color(T* new_color) = 0;
 };
 
 #endif //ICREATURE_H
